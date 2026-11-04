@@ -1,10 +1,6 @@
 import CardPersonagem from "./components/CardPersonagem"
+import personagens from "./data/personagens"
 
-const personagens = [
-  { nome: "Azira", resumo: "Tiefling | Ladina", sistema: "D&D" },
-  { nome: "Akantha Liadon", resumo: "Tiefling | Feiticeira", sistema: "D&D" },
-  { nome: "Victória Viessi", resumo: "Tiefling | Ladina", sistema: "D&D" },
-]
 
 function App() {
   return (
