@@ -11,10 +11,10 @@ function App() {
     const ehHistoria = personagem.sistema === "Personagem de história"
 
     const combinaTipo = 
-    tipo === "todos" ||
-    (tipo === "rpg" && ! ehHistoria) ||
-    (tipo === "historia" && ehHistoria) ||
-    personagem.sistema === tipo
+      tipo === "todos" ||
+      (tipo === "rpg" && ! ehHistoria) ||
+      (tipo === "historia" && ehHistoria) ||
+      personagem.sistema === tipo
 
     return combinaBusca && combinaTipo
   })
