@@ -1,16 +1,37 @@
-# React + Vite
+# 🗝️ Baú de Almas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Seus personagens, suas histórias.
 
-Currently, two official plugins are available:
+Site para guardar e organizar personagens criados por mim — sejam personagens livres, criados por puro prazer de contar histórias, ou personagens de RPG, com ficha completa do sistema.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🚧 **Status:** em desenvolvimento
 
-## React Compiler
+## ✨ Funcionalidades planejadas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- [ ] Galeria de personagens com busca e filtros
+- [ ] Página do personagem dividida em capítulos (informações básicas, aparência, vestuário, armas, personalidade, história e mais)
+- [ ] Imagens de roupas, armas e galeria
+- [ ] Fichas de RPG: D&D, Ordem Paranormal, Tormenta, Call of Cthulhu, Vampiro: A Máscara e Pathfinder
+- [ ] Login e armazenamento na nuvem
 
-## Expanding the ESLint configuration
+## 🛠️ Tecnologias
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- Vite
+- JavaScript
+- ESLint
+
+## ▶️ Como rodar o projeto
+
+```bash
+npm install
+npm run dev
+```
+
+Depois, abra `http://localhost:5173` no navegador.
+
+## 👩‍💻 Autora
+
+Feito por **Stefany Campos** — estudante de Engenharia de Software.
+
+[LinkedIn](https://www.linkedin.com/in/stefany--campos/)
