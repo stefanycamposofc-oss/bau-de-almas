@@ -4,9 +4,21 @@ import { useState } from "react"
 
 function App() {
   const [busca, setBusca] = useState("")
-  const personagensFiltrados = personagens.filter((personagem) =>
-    personagem.nome.toLowerCase() .includes(busca.toLowerCase())
-  )
+  const [tipo, setTipo] = useState("todos")
+  const personagensFiltrados = personagens.filter((personagem) => {
+    const combinaBusca = personagem.nome.toLowerCase().includes(busca.toLowerCase())
+
+    const ehHistoria = personagem.sistema === "Personagem de história"
+
+    const combinaTipo = 
+    tipo === "todos" ||
+    (tipo === "rpg" && ! ehHistoria) ||
+    (tipo === "historia" && ehHistoria) ||
+    personagem.sistema === tipo
+
+    return combinaBusca && combinaTipo
+  })
+    
 
   return (
     <div>
@@ -18,6 +30,15 @@ function App() {
         value={busca}
         onChange={(evento) => setBusca(evento.target.value)}
       />
+
+      <div>
+        <button onClick={() => setTipo("todos")}>Todos</button>
+        <button onClick={() => setTipo("rpg")}>RPG</button>
+        <button onClick={() => setTipo("historia")}>Histórias</button>
+        <button onClick={() => setTipo("D&D")}>D&D</button>
+        <button onClick={() => setTipo("Ordem Paranormal")}>Ordem Paranormal</button>
+      </div>
+
 
       {personagensFiltrados.map((personagem) => (
         <CardPersonagem
