@@ -1,9 +1,9 @@
-function CardPersonagem() {
+function CardPersonagem({ nome, resumo,sistema }) {
     return(
         <div>
-            <h2>Azira</h2>
-            <p>Tiefling · Ladina</p>
-            <span>D&D</span>
+            <h2>{nome}</h2>
+            <p>{resumo}</p>
+            <span>{sistema}</span>
         </div>
     )
 }
