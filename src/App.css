@@ -1,0 +1,72 @@
+.pagina {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.cabecalho {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.logo {
+  margin: 0;
+  font-size: 48px;
+  letter-spacing: 0.06em;
+}
+
+.slogan {
+  margin: 4px 0 0;
+  color: var(--nevoa);
+  font-style: italic;
+}
+
+.busca {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  background: var(--verde-sombra);
+  border: 1px solid var(--verde-borda);
+  border-radius: 8px;
+  color: var(--luar);
+  font-family: var(--fonte-texto);
+  font-size: 18px;
+}
+
+.busca::placeholder {
+  color: var(--nevoa);
+}
+
+.busca:focus {
+  outline: none;
+  border-color: var(--ouro);
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0 32px;
+}
+
+.filtro {
+  height: 40px;
+  padding: 0 16px;
+  background: transparent;
+  border: 1px solid var(--verde-borda);
+  border-radius: 999px;
+  color: var(--luar);
+  font-family: var(--fonte-texto);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.filtro:hover {
+  border-color: var(--ouro);
+}
+
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}
