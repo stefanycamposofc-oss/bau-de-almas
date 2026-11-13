@@ -1,9 +1,12 @@
+import"./CardPersonagem.css"
+
 function CardPersonagem({ nome, resumo,sistema }) {
     return(
-        <div>
-            <h2>{nome}</h2>
-            <p>{resumo}</p>
-            <span>{sistema}</span>
+        <div className="ficha">
+            <span className="ficha-titulo">REGISTRO DE ALMA</span>
+            <p className="campo"><span className="rotulo">Nome:</span> {nome}</p>
+            <p className="campo"><span className="rotulo">Descrição:</span> {resumo}</p>
+            <p className="campo"><span className="rotulo">Sistema:</span> {sistema}</p>
         </div>
     )
 }
