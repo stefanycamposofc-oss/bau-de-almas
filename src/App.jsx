@@ -51,6 +51,8 @@ function App() {
             nome={personagem.nome}
             resumo={personagem.resumo}
             sistema={personagem.sistema}
+            foto={personagem.foto}
+
           />
       ))}
       </div>
