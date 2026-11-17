@@ -3,6 +3,7 @@ import personagens from "./data/personagens"
 import { useState } from "react"
 import "./App.css"
 import { Routes, Route, useNavigate } from "react-router-dom"
+import PaginaPersonagem from "./components/PaginaPersonagem"
 
 function App() {
   const [busca, setBusca] = useState("")
