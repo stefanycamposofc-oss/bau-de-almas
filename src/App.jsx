@@ -2,12 +2,12 @@ import CardPersonagem from "./components/CardPersonagem"
 import personagens from "./data/personagens"
 import { useState } from "react"
 import "./App.css"
-import PaginaPersonagem from "./components/PaginaPersonagem"
+import { Routes, Route, useNavigate } from "react-router-dom"
 
 function App() {
   const [busca, setBusca] = useState("")
   const [tipo, setTipo] = useState("todos")
-  const [selecionado, setSelecionado] =useState(null)
+  const navegar = useNavigate()
   const personagensFiltrados = personagens.filter((personagem) => {
     const combinaBusca = personagem.nome.toLowerCase().includes(busca.toLowerCase())
 
@@ -21,17 +21,12 @@ function App() {
 
     return combinaBusca && combinaTipo
   })
-  if (selecionado) {
-    return (
-      <PaginaPersonagem
-      personagem={selecionado}
-      aoVoltar={() => setSelecionado(null)}
-      />
-    )
-  }
+
     
 
   return (
+        <Routes>
+      <Route path="/" element={
     <div className="pagina">
       <header className="cabecalho">
         <h1 className="logo">Baú de Almas</h1>
@@ -62,11 +57,13 @@ function App() {
             resumo={personagem.resumo}
             sistema={personagem.sistema}
             foto={personagem.foto}
-            aoAbrir={() => setSelecionado(personagem)}
-          />
+            aoAbrir={() => navegar("/personagem/" + personagem.id)}          />
       ))}
       </div>
     </div>
+          } />
+      <Route path="/personagem/:id" element={<PaginaPersonagem />} />
+    </Routes>
   )
 }
 

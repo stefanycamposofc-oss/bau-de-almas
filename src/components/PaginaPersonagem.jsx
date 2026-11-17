@@ -1,9 +1,18 @@
 import "./PaginaPersonagem.css"
+import { useParams, useNavigate } from "react-router-dom"
+import personagens from "../data/personagens"
 
-function PaginaPersonagem({ personagem, aoVoltar}) {
+function PaginaPersonagem() {
+        const { id } = useParams()
+    const navegar = useNavigate()
+    const personagem = personagens.find((item) => item.id === id)
+
+    if (!personagem) {
+        return <p>Personagem não encontrada.</p>
+    }
     return (
         <div className= "pagina-personagem">
-            <button className= "voltar" onClick={aoVoltar}>← Voltar ao baú</button>
+            <button className= "voltar" onClick={() => navegar("/")}>← Voltar ao baú</button>
 
             <div className="perfil">
                 {personagem.foto && (
