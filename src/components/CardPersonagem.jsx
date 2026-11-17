@@ -1,12 +1,12 @@
 import"./CardPersonagem.css"
 
-function CardPersonagem({ nome, resumo, sistema, foto }) {
+function CardPersonagem({ nome, resumo, sistema, foto, aoAbrir }) {
     const inicial = nome.charAt(0)
     const ehHistoria = sistema === "Personagem de história"
     const carimbo = ehHistoria ? "HISTÓRIA" : "RPG"
 
     return(
-        <div className="ficha">
+        <div className="ficha" onClick={aoAbrir}>
             <span className="ficha-titulo">REGISTRO DE ALMA</span>
             <div className="ficha-corpo">
                 <div className="ficha-campos">

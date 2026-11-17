@@ -2,10 +2,12 @@ import CardPersonagem from "./components/CardPersonagem"
 import personagens from "./data/personagens"
 import { useState } from "react"
 import "./App.css"
+import PaginaPersonagem from "./components/PaginaPersonagem"
 
 function App() {
   const [busca, setBusca] = useState("")
   const [tipo, setTipo] = useState("todos")
+  const [selecionado, setSelecionado] =useState(null)
   const personagensFiltrados = personagens.filter((personagem) => {
     const combinaBusca = personagem.nome.toLowerCase().includes(busca.toLowerCase())
 
@@ -19,6 +21,14 @@ function App() {
 
     return combinaBusca && combinaTipo
   })
+  if (selecionado) {
+    return (
+      <PaginaPersonagem
+      personagem={selecionado}
+      aoVoltar={() => setSelecionado(null)}
+      />
+    )
+  }
     
 
   return (
@@ -52,7 +62,7 @@ function App() {
             resumo={personagem.resumo}
             sistema={personagem.sistema}
             foto={personagem.foto}
-
+            aoAbrir={() => setSelecionado(personagem)}
           />
       ))}
       </div>

@@ -1,0 +1,55 @@
+.pagina-personagem{
+    max-width:  900px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+.voltar{
+    margin-bottom: 32px;
+    padding: 8px 4px;
+    background: none;
+    border: none;
+    color: var(--nevoa);
+    font-family: var(--fonte-texto);
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.voltar:hover {
+    color: var(--ouro);
+}
+
+.perfil {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: flex-end;
+}
+
+.perfil-foto {
+    width: 200px;
+    height: 250px;
+    object-fit: cover;
+    border: 8px solid var(--pergaminho);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+}
+
+.perfil-sistema {
+    font-family: var(--fonte-ficha);
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    color: var(--ouro);
+    text-transform: uppercase;
+}
+
+.perfil-nome {
+    margin: 4px 0;
+    font-size: 48px;
+}
+
+.perfil-resumo {
+    margin: 0;
+    color: var(--nevoa);
+    font-style: italic;
+    font-size: 20px;
+}
