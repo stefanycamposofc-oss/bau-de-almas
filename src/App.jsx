@@ -63,7 +63,7 @@ function App() {
       </div>
     </div>
           } />
-      <Route path="/personagem/:id" element={<PaginaPersonagem />} />
+      <Route path="/personagem/:id/:capitulo?" element={<PaginaPersonagem />} />
     </Routes>
   )
 }
