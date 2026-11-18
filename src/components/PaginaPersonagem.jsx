@@ -59,6 +59,7 @@ function PaginaPersonagem() {
             <nav className="menu-capitulos">
                 {capitulosVisiveis.map((cap) => (
                     <Link
+                        replace
                         key={cap.id}
                         to={"/personagem/" + personagem.id + "/" + cap.id}
                         className={cap.id === capituloAtual.id ? "link-capitulo ativo" : "link-capitulo"}>
