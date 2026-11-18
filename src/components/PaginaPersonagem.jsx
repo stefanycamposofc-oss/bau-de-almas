@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom"
 import personagens from "../data/personagens"
 import CapituloBasico from "./CapituloBasico"
 import CapituloTexto from "./CapituloTexto"
+import CapituloPersonalidade from "./CapituloPersonalidade"
 
 const capitulos = [
     { id: "basico", titulo: "Informações básicas"},
@@ -39,6 +40,8 @@ function PaginaPersonagem() {
         conteudo = <CapituloBasico basico={dados}/>
     } else if (capitulosDeTexto.includes(capituloAtual.id) && dados) {
         conteudo = <CapituloTexto texto={dados}/>
+    } else if (capituloAtual.id === "personalidade" && dados) {
+        conteudo = <CapituloPersonalidade personalidade={dados} />
     }
 
     return (

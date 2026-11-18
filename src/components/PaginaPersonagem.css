@@ -127,3 +127,34 @@
     font-size: 18px;
     line-height: 1.7;
 }
+
+.personalidade {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 32px;
+}
+
+.grupo-titulo{
+    margin: 0 0 8px;
+    color: var(--sepia);
+    font-family: var(--fonte-ficha);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.etiquetas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.etiqueta {
+    padding: 4px 12px;
+    border: 1px solid var(--sepia);
+    border-radius: 999px;
+    font-size: 16px;
+}
