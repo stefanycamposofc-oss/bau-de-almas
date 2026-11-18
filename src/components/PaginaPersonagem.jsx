@@ -64,7 +64,7 @@ function PaginaPersonagem() {
                 <h2>{capituloAtual.titulo}</h2>
                 {capituloAtual.id === "basico" && personagem.basico ? (
                     <dl className="dados">
-                        {camposBasico.map((campo) => (
+                        {camposBasicos.map((campo) => (
                             <div className="dado" key={campo.chave}>
                                 <dt>{campo.rotulo}</dt>
                                 <dd>{personagem.basico[campo.chave] || "—"}</dd>
