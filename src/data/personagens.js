@@ -7,6 +7,10 @@ const personagens = [
         classe: "",
         origem: "",
     },
+    aparencia: `Primeiro parágrafo de teste.
+
+Segundo parágrafo de teste.`,
+    historia: `História teste`,
 },
 {id: "akantha", nome: "Akantha Liadon", resumo: "Tiefling | Feiticeira", sistema: "D&D", foto: "/personagens/akantha/retrato.jpg" },
 {id: "victoria", nome: "Victória Viessi", resumo: "Tiefling | Ladina", sistema: "D&D", foto: "/personagens/victoria/retrato.jpg" },

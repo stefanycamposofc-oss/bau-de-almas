@@ -1,6 +1,9 @@
 import "./PaginaPersonagem.css"
 import { useParams, useNavigate, Link } from "react-router-dom"
 import personagens from "../data/personagens"
+import CapituloBasico from "./CapituloBasico"
+import CapituloTexto from "./CapituloTexto"
+
 const capitulos = [
     { id: "basico", titulo: "Informações básicas"},
     { id: "aparencia", titulo: "Aparência"},
@@ -15,13 +18,6 @@ const capitulos = [
     { id: "ficha", titulo: "Ficha"},
     { id: "anotacoes", titulo: "Anotações"},
 ]
-const camposBasicos = [
-    { chave: "idade", rotulo: "Idade"},
-    { chave: "genero", rotulo: "Gênero"},
-    { chave: "raca", rotulo: "Raça"},
-    { chave: "classe", rotulo: "Classe"},
-    { chave: "origem", rotulo: "Origem"},
-]
 
 function PaginaPersonagem() {
         const { id, capitulo } = useParams()
@@ -34,6 +30,17 @@ function PaginaPersonagem() {
     const ehHistoria = personagem.sistema === "Personagem de história"
     const capitulosVisiveis = capitulos.filter((cap) => !(ehHistoria && cap.id ==="ficha"))
     const capituloAtual = capitulosVisiveis.find((cap) => cap.id === capitulo) || capitulosVisiveis[0]
+    const dados = personagem[capituloAtual.id]
+    const capitulosDeTexto = ["aparencia", "historia", "objetivos", "anotacoes"]
+
+    let conteudo = <p className="em-breve">Este capítulo ainda está em branco.</p>
+
+    if (capituloAtual.id === "basico" && dados){
+        conteudo = <CapituloBasico basico={dados}/>
+    } else if (capitulosDeTexto.includes(capituloAtual.id) && dados) {
+        conteudo = <CapituloTexto texto={dados}/>
+    }
+
     return (
         <div className= "pagina-personagem">
             <button className= "voltar" onClick={() => navegar("/")}>← Voltar ao baú</button>
@@ -62,18 +69,7 @@ function PaginaPersonagem() {
 
             <section className="conteudo-capitulo">
                 <h2>{capituloAtual.titulo}</h2>
-                {capituloAtual.id === "basico" && personagem.basico ? (
-                    <dl className="dados">
-                        {camposBasicos.map((campo) => (
-                            <div className="dado" key={campo.chave}>
-                                <dt>{campo.rotulo}</dt>
-                                <dd>{personagem.basico[campo.chave] || "—"}</dd>
-                            </div>
-                        ))}
-                    </dl>    
-                ) : (
-                    <p className="em-breve">Este capítulo ainda está em branco.</p>
-                )}    
+                {conteudo}
             </section>
         </div>
     </div>
