@@ -1,5 +1,13 @@
 const personagens = [
-{id: "azira", nome: "Azira", resumo: "Tiefling | Ladina", sistema: "D&D", foto: "/personagens/azira/retrato.jpg" },
+{id: "azira", nome: "Azira", resumo: "Tiefling | Ladina", sistema: "D&D", foto: "/personagens/azira/retrato.jpg",
+    basico: {
+        idade: "",
+        genero: "",
+        raca: "",
+        classe: "",
+        origem: "",
+    },
+},
 {id: "akantha", nome: "Akantha Liadon", resumo: "Tiefling | Feiticeira", sistema: "D&D", foto: "/personagens/akantha/retrato.jpg" },
 {id: "victoria", nome: "Victória Viessi", resumo: "Tiefling | Ladina", sistema: "D&D", foto: "/personagens/victoria/retrato.jpg" },
 {id: "kira", nome: "Kira Keith", resumo: "Humana | Especialista", sistema: "Ordem Paranormal" },

@@ -97,3 +97,27 @@
     color: var(--sepia);
     font-style: italic;
 }
+
+.dados {
+    margin: 0;
+}
+
+.dado {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    padding: 10px 0;
+    border-bottom: 1px dotted var(--sepia);
+}
+
+.dado dt {
+    color: var(--sepia);
+    font-family: var(--fonte-ficha);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.dado dd {
+    margin: 0;
+    font-size: 18px;
+}

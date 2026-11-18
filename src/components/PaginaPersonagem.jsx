@@ -15,6 +15,13 @@ const capitulos = [
     { id: "ficha", titulo: "Ficha"},
     { id: "anotacoes", titulo: "Anotações"},
 ]
+const camposBasicos = [
+    { chave: "idade", rotulo: "Idade"},
+    { chave: "genero", rotulo: "Gênero"},
+    { chave: "raca", rotulo: "Raça"},
+    { chave: "classe", rotulo: "Classe"},
+    { chave: "origem", rotulo: "Origem"},
+]
 
 function PaginaPersonagem() {
         const { id, capitulo } = useParams()
@@ -24,7 +31,9 @@ function PaginaPersonagem() {
     if (!personagem) {
         return <p>Personagem não encontrada.</p>
     }
-    const capituloAtual = capitulos.find((cap) => cap.id === capitulo) || capitulos[0]
+    const ehHistoria = personagem.sistema === "Personagem de história"
+    const capitulosVisiveis = capitulos.filter((cap) => !(ehHistoria && cap.id ==="ficha"))
+    const capituloAtual = capitulosVisiveis.find((cap) => cap.id === capitulo) || capitulosVisiveis[0]
     return (
         <div className= "pagina-personagem">
             <button className= "voltar" onClick={() => navegar("/")}>← Voltar ao baú</button>
@@ -41,7 +50,7 @@ function PaginaPersonagem() {
         </div>
         <div className="capitulos">
             <nav className="menu-capitulos">
-                {capitulos.map((cap) => (
+                {capitulosVisiveis.map((cap) => (
                     <Link
                         key={cap.id}
                         to={"/personagem/" + personagem.id + "/" + cap.id}
@@ -53,7 +62,18 @@ function PaginaPersonagem() {
 
             <section className="conteudo-capitulo">
                 <h2>{capituloAtual.titulo}</h2>
-                <p className="em-breve">Este capítulo ainda está em branco</p>
+                {capituloAtual.id === "basico" && personagem.basico ? (
+                    <dl className="dados">
+                        {campoBasico.map((campo) => (
+                            <div className="dado" key={campo.chave}>
+                                <dt>{campo.rotulo}</dt>
+                                <dd>{personagem.basico[campo.chave] || "—"}</dd>
+                            </div>
+                        ))}
+                    </dl>    
+                ) : (
+                    <p className="em-breve">Este capítulo ainda está em branco.</p>
+                )}    
             </section>
         </div>
     </div>
