@@ -28,6 +28,11 @@ Segundo parágrafo de teste.`,
         lugares: [],
         outros: ["O1"],
     },
+    relacoes: [
+        { nome: "Pessoa 1", tipo: "Amiga", descricao: "Descrição teste."},
+        { nome: "Pessoa 2", tipo: "Rival", descricao: "Descrição teste."},
+        { nome: "Pessoa 3", tipo: "Família", descricao: "Descrição teste."},
+    ]
 },
 {id: "akantha", nome: "Akantha Liadon", resumo: "Tiefling | Feiticeira", sistema: "D&D", foto: "/personagens/akantha/retrato.jpg" },
 {id: "victoria", nome: "Victória Viessi", resumo: "Tiefling | Ladina", sistema: "D&D", foto: "/personagens/victoria/retrato.jpg" },

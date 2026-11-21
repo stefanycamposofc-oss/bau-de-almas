@@ -5,6 +5,7 @@ import CapituloBasico from "./CapituloBasico"
 import CapituloTexto from "./CapituloTexto"
 import CapituloPersonalidade from "./CapituloPersonalidade"
 import CapituloEtiquetas from "./CapituloEtiquetas"
+import CapituloRelacoes from "./CapituloRelacoes"
 
 const capitulos = [
     { id: "basico", titulo: "Informações básicas"},
@@ -53,6 +54,8 @@ function PaginaPersonagem() {
         conteudo = <CapituloPersonalidade personalidade={dados} />
     } else if (capituloAtual.id === "gostos" && dados) {
         conteudo = <CapituloEtiquetas grupos={gruposGostos} dados={dados}/>
+    } else if (capituloAtual.id === "relacoes" && dados) {
+        conteudo = <CapituloRelacoes relacoes={dados} />
     }
 
     return (
