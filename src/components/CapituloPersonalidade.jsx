@@ -1,3 +1,5 @@
+import CapituloEtiquetas from "./CapituloEtiquetas"
+
 const grupos = [
     { chave: "qualidades", rotulo: "Qualidades"},
     { chave: "defeitos", rotulo: "Defeitos"},
@@ -9,25 +11,8 @@ const grupos = [
 
 function CapituloPersonalidade({personalidade}) {
     return (
-        <div className="personalidade">
-            {grupos.map((grupo) => {
-                const itens = personalidade[grupo.chave] || []
-
-                return (
-                    <div className="grupo" key={grupo.rotulo}>
-                        <h3 className="grupo-titulo">{grupo.rotulo}</h3>
-                        {itens.length > 0 ? (
-                            <ul className="etiquetas">
-                                {itens.map((item) => (
-                                    <li className="etiqueta" key={item}>{item}</li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <p className="em-breve">Nada anotado.</p>
-                        )}       
-                    </div>
-                )
-            })}
+        <>
+        <CapituloEtiquetas grupos={grupos} dados={personalidade} />
 
             {personalidade.sexualidade && (
                 <div className="grupo">
@@ -35,7 +20,7 @@ function CapituloPersonalidade({personalidade}) {
                     <p>{personalidade.sexualidade}</p>
                 </div>
             )}
-        </div>
+        </>
     )
 }
 

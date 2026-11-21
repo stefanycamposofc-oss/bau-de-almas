@@ -4,6 +4,7 @@ import personagens from "../data/personagens"
 import CapituloBasico from "./CapituloBasico"
 import CapituloTexto from "./CapituloTexto"
 import CapituloPersonalidade from "./CapituloPersonalidade"
+import CapituloEtiquetas from "./CapituloEtiquetas"
 
 const capitulos = [
     { id: "basico", titulo: "Informações básicas"},
@@ -18,6 +19,14 @@ const capitulos = [
     { id: "galeria", titulo: "Galeria"},
     { id: "ficha", titulo: "Ficha"},
     { id: "anotacoes", titulo: "Anotações"},
+]
+const gruposGostos = [
+    {chave: "comidas", rotulo: "Comidas" },
+    {chave: "bebidas", rotulo: "Bebidas" },
+    {chave: "musicas", rotulo: "Músicas" },
+    {chave: "cores", rotulo: "Cores" },
+    {chave: "lugares", rotulo: "Lugares" },
+    {chave: "outros", rotulo: "Outros" },
 ]
 
 function PaginaPersonagem() {
@@ -42,6 +51,8 @@ function PaginaPersonagem() {
         conteudo = <CapituloTexto texto={dados}/>
     } else if (capituloAtual.id === "personalidade" && dados) {
         conteudo = <CapituloPersonalidade personalidade={dados} />
+    } else if (capituloAtual.id === "gostos" && dados) {
+        conteudo = <CapituloEtiquetas grupos={gruposGostos} dados={dados}/>
     }
 
     return (

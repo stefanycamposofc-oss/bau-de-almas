@@ -128,10 +128,11 @@
     line-height: 1.7;
 }
 
-.personalidade {
+.grupos-etiquetas {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px 32px;
+    margin-bottom: 24px;
 }
 
 .grupo-titulo{
