@@ -1,0 +1,35 @@
+function CapituloItens({ itens }) {
+    if (itens.length === 0) {
+        return <p className="em-breve">Nada anotado.</p>
+    }
+
+    return (
+        <div className="itens">
+            {itens.map((item) => (
+                <article className="item" key={item.nome}>
+                    {item.imagem ? (
+                        <img className="item-imagem" src={item.imagem} alt={item.nome} />
+                    ) : (
+                        <div className="item-imagem item-sem-imagem">Sem imagem</div>
+                    )}
+
+                    <div className="item-texto">
+                        <h3 className="item-nome">{item.nome}</h3>
+                        {item.dano && <p className="item-dano">Dano: {item.dano}</p>}
+                        <p className="item-descricao">{item.descricao}</p>
+
+                        {item.efeitos && item.efeitos.length > 0 && (
+                            <ul className="etiquetas">
+                                {item.efeitos.map((efeito) => (
+                                    <li className="etiqueta" key={efeito}>{efeito}</li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                </article>
+            ))}
+        </div>
+    )
+}
+
+export default CapituloItens

@@ -6,6 +6,7 @@ import CapituloTexto from "./CapituloTexto"
 import CapituloPersonalidade from "./CapituloPersonalidade"
 import CapituloEtiquetas from "./CapituloEtiquetas"
 import CapituloRelacoes from "./CapituloRelacoes"
+import CapituloItens from "./CapituloItens"
 
 const capitulos = [
     { id: "basico", titulo: "Informações básicas"},
@@ -56,6 +57,8 @@ function PaginaPersonagem() {
         conteudo = <CapituloEtiquetas grupos={gruposGostos} dados={dados}/>
     } else if (capituloAtual.id === "relacoes" && dados) {
         conteudo = <CapituloRelacoes relacoes={dados} />
+    } else if (["vestuario", "armas"].includes(capituloAtual.id) && dados) {
+        conteudo = <CapituloItens itens={dados} />
     }
 
     return (
