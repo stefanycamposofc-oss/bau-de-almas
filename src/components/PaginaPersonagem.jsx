@@ -7,6 +7,7 @@ import CapituloPersonalidade from "./CapituloPersonalidade"
 import CapituloEtiquetas from "./CapituloEtiquetas"
 import CapituloRelacoes from "./CapituloRelacoes"
 import CapituloItens from "./CapituloItens"
+import CapituloGaleria from "./CapituloGaleria"
 
 const capitulos = [
     { id: "basico", titulo: "Informações básicas"},
@@ -59,6 +60,8 @@ function PaginaPersonagem() {
         conteudo = <CapituloRelacoes relacoes={dados} />
     } else if (["vestuario", "armas"].includes(capituloAtual.id) && dados) {
         conteudo = <CapituloItens itens={dados} />
+    } else if (capituloAtual.id === "galeria" && dados) {
+        conteudo = <CapituloGaleria imagens={dados} />
     }
 
     return (
