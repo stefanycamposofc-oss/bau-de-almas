@@ -310,3 +310,64 @@
     font-size: 18px;
     font-style: italic;
 }
+
+.ficha-resumo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.ficha-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 90px;
+    padding: 10px 16px;
+    border: 2px solid var(--sepia);
+}
+
+.ficha-stat-rotulo,
+.atributo-sigla {
+    color: var(--sepia);
+    font-family: var(--fonte-ficha);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.ficha-stat-valor {
+    color: var(--tinta);
+    font-size: 28px;
+}
+
+.atributos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 12px;
+}
+
+.atributo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 8px;
+    border: 1px solid var(--sepia);
+    border-radius: 8px;
+}
+
+.atributo-principal {
+    color: var(--tinta);
+    font-size: 32px;
+    line-height: 1.2;
+}
+
+.atributo-valor {
+    min-width: 36px;
+    padding: 2px 8px;
+    border: 1px solid var(--sepia);
+    border-radius: 999px;
+    font-size: 14px;
+    text-align: center;
+}

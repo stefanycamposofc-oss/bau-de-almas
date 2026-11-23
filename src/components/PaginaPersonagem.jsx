@@ -8,6 +8,8 @@ import CapituloEtiquetas from "./CapituloEtiquetas"
 import CapituloRelacoes from "./CapituloRelacoes"
 import CapituloItens from "./CapituloItens"
 import CapituloGaleria from "./CapituloGaleria"
+import FichaDnd from "./FichaDnd"
+import FichaOrdem from "./FichaOrdem"
 
 const capitulos = [
     { id: "basico", titulo: "Informações básicas"},
@@ -62,6 +64,12 @@ function PaginaPersonagem() {
         conteudo = <CapituloItens itens={dados} />
     } else if (capituloAtual.id === "galeria" && dados) {
         conteudo = <CapituloGaleria imagens={dados} />
+    } else if (capituloAtual.id === "ficha" && dados) {
+        if (personagem.sistema === "D&D"){
+            conteudo = <FichaDnd ficha={dados} />
+        } else if (personagem.sistema ==="Ordem Paranormal") {
+            conteudo = <FichaOrdem ficha={dados} />
+        }
     }
 
     return (

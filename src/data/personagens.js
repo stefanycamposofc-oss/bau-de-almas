@@ -45,11 +45,25 @@ Segundo parágrafo de teste.`,
         {src: "/personagens/azira/retrato.jpg", legenda: "Retrato" },
         {src: "/personagens/azira/retrato.jpg", legenda: "Imagem teste 2" },
         {src: "/personagens/azira/retrato.jpg", legenda: "Imagem teste 3" },
-    ]
+    ],
+    ficha: {
+        nivel: 5,
+        ca: 15,
+        vida: 38,
+        atributos: { forca: 10, destreza: 18, constituicao: 12, inteligencia: 14, sabedoria: 12, carisma: 16 },
+    },
 },
 {id: "akantha", nome: "Akantha Liadon", resumo: "Tiefling | Feiticeira", sistema: "D&D", foto: "/personagens/akantha/retrato.jpg" },
 {id: "victoria", nome: "Victória Viessi", resumo: "Tiefling | Ladina", sistema: "D&D", foto: "/personagens/victoria/retrato.jpg" },
-{id: "kira", nome: "Kira Keith", resumo: "Humana | Especialista", sistema: "Ordem Paranormal" },
+{id: "kira", nome: "Kira Keith", resumo: "Humana | Especialista", sistema: "Ordem Paranormal" ,
+   ficha: {
+    nex: 25,
+    pv: 20,
+    pe: 8,
+    sanidade: 24,
+    atributos: {agilidade: 2, forca: 1, intelecto: 3, presenca: 2, vigor: 1 },
+   }, 
+},
 ]
 
 export default personagens
