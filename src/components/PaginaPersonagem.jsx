@@ -15,6 +15,9 @@ import EditorBasico from "./EditorBasico"
 import EditorTexto from "./EditorTexto"
 import EditorEtiquetas from "./EditorEtiquetas"
 import { gruposPersonalidade } from "./CapituloPersonalidade"
+import EditorFicha from "./EditorFicha"
+import { atributosDnd } from "./FichaDnd"
+import { atributosOrdem } from "./FichaOrdem"
 
 const capitulos = [
     { id: "basico", titulo: "Informações básicas"},
@@ -37,6 +40,17 @@ const gruposGostos = [
     {chave: "cores", rotulo: "Cores" },
     {chave: "lugares", rotulo: "Lugares" },
     {chave: "outros", rotulo: "Outros" },
+]
+const camposFichaDnd = [
+    { chave: "nivel", rotulo: "Nível" },
+    { chave: "ca", rotulo: "CA" },
+    { chave: "vida", rotulo: "Vida" },
+]
+const camposFichaOrdem = [
+    { chave: "nex", rotulo: "NEX (%)" },
+    { chave: "pv", rotulo: "PV" },
+    { chave: "pe", rotulo: "PE" },
+    { chave: "sanidade", rotulo: "Sanidade" },
 ]
 
 function PaginaPersonagem({ personagens, aoSalvar }) {
@@ -79,7 +93,8 @@ function PaginaPersonagem({ personagens, aoSalvar }) {
     }
     
 const capitulosEditaveis = ["basico", ...capitulosDeTexto, "personalidade", "gostos"]
-const podeEditar = capitulosEditaveis.includes(capituloAtual.id)
+const temFichaPropria = personagem.sistema === "D&D" || personagem.sistema === "Ordem Paranormal"
+const podeEditar = capitulosEditaveis.includes(capituloAtual.id) || (capituloAtual.id === "ficha" && temFichaPropria)
 
     async function salvarCapitulo(novoValor) {
         const novosCapitulos = { ...personagem.capitulos, [capituloAtual.id]: novoValor }
@@ -128,6 +143,18 @@ const podeEditar = capitulosEditaveis.includes(capituloAtual.id)
         conteudo = (
             <EditorEtiquetas
                 grupos={gruposGostos}
+                valorInicial={dados}
+                aoSalvar={salvarCapitulo}
+                aoCancelar={() => setEditandoCapitulo(false)}
+            />
+        )
+    } else if (editandoCapitulo && capituloAtual.id === "ficha") {
+        const ehDnd = personagem.sistema === "D&D"
+
+        conteudo = (
+            <EditorFicha
+                campos={ehDnd ? camposFichaDnd : camposFichaOrdem}
+                atributos={ehDnd ? atributosDnd : atributosOrdem}
                 valorInicial={dados}
                 aoSalvar={salvarCapitulo}
                 aoCancelar={() => setEditandoCapitulo(false)}

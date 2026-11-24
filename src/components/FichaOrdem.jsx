@@ -1,4 +1,4 @@
-const atributosOrdem =  [
+export const atributosOrdem =  [
     { chave: "agilidade", sigla: "AGI" },
     { chave: "forca", sigla: "FOR" },
     { chave: "intelecto", sigla: "INT" },

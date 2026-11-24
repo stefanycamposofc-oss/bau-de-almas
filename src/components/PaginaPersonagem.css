@@ -523,3 +523,9 @@
     line-height: 1;
     cursor: pointer;
 }
+
+.editor-numeros {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 12px;
+}

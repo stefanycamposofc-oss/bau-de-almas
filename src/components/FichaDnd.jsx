@@ -1,4 +1,4 @@
-const atributosDnd = [
+export const atributosDnd = [
     { chave: "forca", sigla: "FOR"},
     { chave: "destreza", sigla: "DES"},
     { chave: "constituicao", sigla: "CON"},
