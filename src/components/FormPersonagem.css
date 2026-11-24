@@ -82,3 +82,18 @@
     opacity: 0.6;
     cursor: wait;
 }
+
+.form-apagar {
+    padding: 12px 20px;
+    border: 1px solid var(--cera);
+    background: none;
+    color: var(--cera);
+    font-family: var(--fonte-texto);
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.form-apagar:hover {
+    background: var(--cera);
+    color: var(--pergaminho);
+}

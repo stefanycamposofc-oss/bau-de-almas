@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { supabase } from "../lib/supabase"
 import "./FormPersonagem.css"
 
@@ -22,13 +22,16 @@ function criarId(nome) {
         .replace(/(^-|-$)/g, "")
 }
 
-function FormPersonagem({ aoSalvar }) {
+function FormPersonagem({ personagens, aoSalvar }) {
     const navegar = useNavigate()
+    const { id } = useParams()
+    const existente = personagens.find((item) => item.id === id)
+    const editando = Boolean(existente)
 
-    const [nome, setNome] = useState("")
-    const [resumo, setResumo] = useState("")
-    const [sistema, setSistema] = useState("D&D")
-    const [foto, setFoto] = useState("")
+    const [nome, setNome] = useState(existente ? existente.nome : "")
+    const [resumo, setResumo] = useState(existente ? existente.resumo : "")
+    const [sistema, setSistema] = useState(existente ? existente.sistema : "D&D")
+    const [foto, setFoto] = useState(existente ? existente.foto || "" : "")
     const [erro, setErro] = useState("")
     const [salvando, setSalvando] = useState(false)
 
@@ -37,15 +40,17 @@ function FormPersonagem({ aoSalvar }) {
         setErro("")
         setSalvando(true)
 
-        const id = criarId(nome)
+        const dados = { nome: nome, resumo: resumo, sistema: sistema, foto: foto || null }
+        const idFinal = editando ? existente.id : criarId(nome)
 
-        const { error } = await supabase.from("personagens").insert({
-            id: id,
-            nome: nome,
-            resumo: resumo,
-            sistema: sistema,
-            foto: foto || null,
-        })
+        let resposta
+        if (editando) {
+            resposta = await supabase.from("personagens").update(dados).eq("id", idFinal)
+        } else {
+            resposta = await supabase.from("personagens").insert({ id: idFinal, ...dados })
+        }
+
+        const error = resposta.error
 
         if (error) {
             if (error.code === "23505") {
@@ -58,7 +63,29 @@ function FormPersonagem({ aoSalvar }) {
         }
 
         await aoSalvar()
-        navegar("/personagem/" + id, { replace: true })
+        navegar("/personagem/" + idFinal, { replace: true })
+    }
+    
+    async function apagar() {
+        const certeza = window.confirm("Apagar " + existente.nome + "? Isso não pode ser desfeito.")
+
+        if (!certeza) {
+            return
+        }
+
+        const { error } = await supabase.from("personagens").delete().eq("id", existente.id)
+
+        if (error) {
+            setErro("Não foi possível apagar. Tente de novo.")
+            return
+        }
+
+        await aoSalvar()
+        navegar("/", { replace: true })
+    }
+
+    if (id && !existente) {
+        return <p className="carregando">Personagem não encontrada.</p>
     }
 
     return (
@@ -66,7 +93,7 @@ function FormPersonagem({ aoSalvar }) {
             <button className="voltar" onClick={() => navegar(-1)}>← Voltar</button>
 
             <form className="form-caixa" onSubmit={salvar}>
-                <h1 className="form-titulo">Nova personagem</h1>
+                <h1 className="form-titulo">{editando ? "Editar personagem" : "Nova personagem"}</h1>
 
                 <label className="form-rotulo" htmlFor="nome">Nome</label>
                 <input
@@ -114,6 +141,11 @@ function FormPersonagem({ aoSalvar }) {
                     <button className="form-salvar" type="submit" disabled={salvando}>
                         {salvando ? "Salvando..." : "Salvar"}
                     </button>
+                    {editando &&(
+                        <button className="form-apagar" type="button" onClick={apagar}>
+                            Apagar personagem
+                        </button>
+                    )}
                 </div>
             </form>
         </div>

@@ -112,7 +112,8 @@ function App() {
     </div>
           } />
       <Route path="/personagem/:id/:capitulo?" element={<PaginaPersonagem personagens={personagens} />} />
-      <Route path="/nova" element={<FormPersonagem aoSalvar={buscarPersonagens} />} />
+      <Route path="/nova" element={<FormPersonagem personagens={personagens} aoSalvar={buscarPersonagens} />} />
+      <Route path="/editar/:id" element={<FormPersonagem personagens={personagens} aoSalvar={buscarPersonagens} />} />
     </Routes>
   )
 }

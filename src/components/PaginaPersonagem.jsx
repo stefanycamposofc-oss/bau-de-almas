@@ -83,6 +83,7 @@ function PaginaPersonagem({ personagens }) {
                     <span className="perfil-sistema">{personagem.sistema}</span>
                     <h1 className="perfil-nome">{personagem.nome}</h1>
                     <p className="perfil-resumo">{personagem.resumo}</p>
+                    <button className="editar" onClick={() => navegar("/editar/" + personagem.id)}>Editar</button>
                 </div>
         </div>
         <div className="capitulos">

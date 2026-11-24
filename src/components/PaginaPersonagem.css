@@ -371,3 +371,19 @@
     font-size: 14px;
     text-align: center;
 }
+
+.editar {
+    margin-top: 12px;
+    padding: 6px 16px;
+    border: 1px solid var(--verde-borda);
+    background: none;
+    color: var(--nevoa);
+    font-family: var(--fonte-texto);
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.editar:hover {
+    border-color: var(--ouro);
+    color: var(--ouro);
+}
