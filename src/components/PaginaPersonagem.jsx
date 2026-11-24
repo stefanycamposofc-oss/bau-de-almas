@@ -13,6 +13,8 @@ import { useState } from "react"
 import { supabase } from "../lib/supabase"
 import EditorBasico from "./EditorBasico"
 import EditorTexto from "./EditorTexto"
+import EditorEtiquetas from "./EditorEtiquetas"
+import { gruposPersonalidade } from "./CapituloPersonalidade"
 
 const capitulos = [
     { id: "basico", titulo: "Informações básicas"},
@@ -76,7 +78,8 @@ function PaginaPersonagem({ personagens, aoSalvar }) {
         }
     }
     
-    const podeEditar = capituloAtual.id === "basico" || capitulosDeTexto.includes(capituloAtual.id)
+const capitulosEditaveis = ["basico", ...capitulosDeTexto, "personalidade", "gostos"]
+const podeEditar = capitulosEditaveis.includes(capituloAtual.id)
 
     async function salvarCapitulo(novoValor) {
         const novosCapitulos = { ...personagem.capitulos, [capituloAtual.id]: novoValor }
@@ -106,6 +109,25 @@ function PaginaPersonagem({ personagens, aoSalvar }) {
     } else if (editandoCapitulo && capitulosDeTexto.includes(capituloAtual.id)) {
         conteudo = (
             <EditorTexto
+                valorInicial={dados}
+                aoSalvar={salvarCapitulo}
+                aoCancelar={() => setEditandoCapitulo(false)}
+            />
+        )
+    } else if (editandoCapitulo && capituloAtual.id === "personalidade") {
+        conteudo = (
+            <EditorEtiquetas
+                grupos={gruposPersonalidade}
+                campoTexto={{ chave: "sexualidade", rotulo: "Sexualidade" }}
+                valorInicial={dados}
+                aoSalvar={salvarCapitulo}
+                aoCancelar={() => setEditandoCapitulo(false)}
+            />
+        )
+    } else if (editandoCapitulo && capituloAtual.id === "gostos") {
+        conteudo = (
+            <EditorEtiquetas
+                grupos={gruposGostos}
                 valorInicial={dados}
                 aoSalvar={salvarCapitulo}
                 aoCancelar={() => setEditandoCapitulo(false)}

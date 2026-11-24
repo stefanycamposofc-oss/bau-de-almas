@@ -1,6 +1,6 @@
 import CapituloEtiquetas from "./CapituloEtiquetas"
 
-const grupos = [
+export const gruposPersonalidade = [
     { chave: "qualidades", rotulo: "Qualidades"},
     { chave: "defeitos", rotulo: "Defeitos"},
     { chave: "hobbies", rotulo: "Hobbies"},
@@ -12,7 +12,7 @@ const grupos = [
 function CapituloPersonalidade({personalidade}) {
     return (
         <>
-        <CapituloEtiquetas grupos={grupos} dados={personalidade} />
+        <CapituloEtiquetas grupos={gruposPersonalidade} dados={personalidade} />
 
             {personalidade.sexualidade && (
                 <div className="grupo">

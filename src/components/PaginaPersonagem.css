@@ -497,3 +497,29 @@
     font-size: 15px;
     cursor: pointer;
 }
+
+.editor-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.editor-adicionar {
+    display: flex;
+    gap: 8px;
+}
+
+.editor-adicionar .editor-campos {
+    flex: 1;
+}
+
+.etiqueta-remover {
+    margin-left: 6px;
+    padding: 0 4px;
+    border: none;
+    background: none;
+    color: var(--cera);
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+}
