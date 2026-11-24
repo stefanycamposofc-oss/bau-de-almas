@@ -1,14 +1,31 @@
 import CardPersonagem from "./components/CardPersonagem"
 import personagens from "./data/personagens"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import "./App.css"
 import { Routes, Route, useNavigate } from "react-router-dom"
 import PaginaPersonagem from "./components/PaginaPersonagem"
+import Login from "./components/Login"
+import { supabase } from "./lib/supabase"
 
 function App() {
   const [busca, setBusca] = useState("")
   const [tipo, setTipo] = useState("todos")
   const navegar = useNavigate()
+  const [sessao, setSessao] = useState(null)
+  const [carregando, setCarregando] = useState(true)
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      setSessao(data.session)
+      setCarregando(false)
+    })
+
+    const { data } = supabase.auth.onAuthStateChange((_evento, novaSessao) => {
+      setSessao(novaSessao)
+    })
+
+    return () => data.subscription.unsubscribe()
+  }, [])
   const personagensFiltrados = personagens.filter((personagem) => {
     const combinaBusca = personagem.nome.toLowerCase().includes(busca.toLowerCase())
 
@@ -22,6 +39,14 @@ function App() {
 
     return combinaBusca && combinaTipo
   })
+  
+  if (carregando) {
+    return <p className="carregando">Abrindo o baú...</p>
+  }
+
+  if (!sessao) {
+    return <Login />
+  }
 
     
 
@@ -32,6 +57,7 @@ function App() {
       <header className="cabecalho">
         <h1 className="logo">Baú de Almas</h1>
         <p className="slogan">Seus personagens, suas histórias.</p>
+        <button className="sair" onClick={() => supabase.auth.signOut()}>Sair</button>
       </header>
       <input
         className="busca"

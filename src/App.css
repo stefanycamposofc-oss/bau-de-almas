@@ -70,3 +70,26 @@
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 24px;
 }
+
+.sair {
+  margin-top: 12px;
+  padding: 6px 14px;
+  border: 1px solid var(--verde-borda);
+  background: none;
+  color: var(--nevoa);
+  font-family: var(--fonte-texto);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.sair:hover {
+  border-color: var(--ouro);
+  color: var(--ouro);
+}
+
+.carregando {
+  padding: 40px;
+  color: var(--nevoa);
+  font-style: italic;
+  text-align: center;
+}
