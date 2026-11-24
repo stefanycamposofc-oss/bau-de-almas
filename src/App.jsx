@@ -1,5 +1,4 @@
 import CardPersonagem from "./components/CardPersonagem"
-import personagens from "./data/personagens"
 import { useState, useEffect } from "react"
 import "./App.css"
 import { Routes, Route, useNavigate } from "react-router-dom"
@@ -13,6 +12,8 @@ function App() {
   const navegar = useNavigate()
   const [sessao, setSessao] = useState(null)
   const [carregando, setCarregando] = useState(true)
+  const [personagens, setPersonagens] = useState([])
+  const [carregandoPersonagens, setCarregandoPersonagens] = useState(true)
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -26,6 +27,26 @@ function App() {
 
     return () => data.subscription.unsubscribe()
   }, [])
+  
+  useEffect(() => {
+    if (!sessao) {
+      return
+    }
+
+    async function buscarPersonagens() {
+      const { data, error } = await supabase.from("personagens").select("*").order("nome")
+
+      if (error) {
+        console.error("Erro ao buscar personagens:", error)
+      } else {
+        setPersonagens(data.map((linha) => ({ ...linha, ...linha.capitulos })))
+      }
+
+      setCarregandoPersonagens(false)
+    }
+
+    buscarPersonagens()
+  }, [sessao])
   const personagensFiltrados = personagens.filter((personagem) => {
     const combinaBusca = personagem.nome.toLowerCase().includes(busca.toLowerCase())
 
@@ -40,7 +61,7 @@ function App() {
     return combinaBusca && combinaTipo
   })
   
-  if (carregando) {
+  if (carregando || (sessao && carregandoPersonagens)) {
     return <p className="carregando">Abrindo o baú...</p>
   }
 
@@ -89,7 +110,7 @@ function App() {
       </div>
     </div>
           } />
-      <Route path="/personagem/:id/:capitulo?" element={<PaginaPersonagem />} />
+      <Route path="/personagem/:id/:capitulo?" element={<PaginaPersonagem personagens={personagens} />} />
     </Routes>
   )
 }
