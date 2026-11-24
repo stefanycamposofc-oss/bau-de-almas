@@ -5,6 +5,7 @@ import { Routes, Route, useNavigate } from "react-router-dom"
 import PaginaPersonagem from "./components/PaginaPersonagem"
 import Login from "./components/Login"
 import { supabase } from "./lib/supabase"
+import FormPersonagem from "./components/FormPersonagem"
 
 function App() {
   const [busca, setBusca] = useState("")
@@ -28,24 +29,22 @@ function App() {
     return () => data.subscription.unsubscribe()
   }, [])
   
+  async function buscarPersonagens() {
+    const { data, error } = await supabase.from("personagens").select("*").order("nome")
+
+    if (error) {
+      console.error("Erro ao buscar personagens:", error)
+    } else {
+      setPersonagens(data.map((linha) => ({ ...linha, ...linha.capitulos })))
+    }
+
+    setCarregandoPersonagens(false)
+  }
+
   useEffect(() => {
-    if (!sessao) {
-      return
+    if (sessao) {
+      buscarPersonagens()
     }
-
-    async function buscarPersonagens() {
-      const { data, error } = await supabase.from("personagens").select("*").order("nome")
-
-      if (error) {
-        console.error("Erro ao buscar personagens:", error)
-      } else {
-        setPersonagens(data.map((linha) => ({ ...linha, ...linha.capitulos })))
-      }
-
-      setCarregandoPersonagens(false)
-    }
-
-    buscarPersonagens()
   }, [sessao])
   const personagensFiltrados = personagens.filter((personagem) => {
     const combinaBusca = personagem.nome.toLowerCase().includes(busca.toLowerCase())
@@ -95,6 +94,8 @@ function App() {
         <button className="filtro" onClick={() => setTipo("D&D")}>D&D</button>
         <button className="filtro" onClick={() => setTipo("Ordem Paranormal")}>Ordem Paranormal</button>
       </div>
+      
+      <button className="nova" onClick={() => navegar("/nova")}>+ Nova personagem</button>
 
 
       <div className="galeria">
@@ -111,6 +112,7 @@ function App() {
     </div>
           } />
       <Route path="/personagem/:id/:capitulo?" element={<PaginaPersonagem personagens={personagens} />} />
+      <Route path="/nova" element={<FormPersonagem aoSalvar={buscarPersonagens} />} />
     </Routes>
   )
 }

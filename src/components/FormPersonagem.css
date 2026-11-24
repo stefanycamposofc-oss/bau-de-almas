@@ -1,0 +1,84 @@
+.form-pagina {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+.form-caixa {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 32px;
+    background: var(--pergaminho);
+    color: var(--tinta);
+    box-shadow:
+        inset 0 0 40px rgba(94, 64, 36, 0.45),
+        0 12px 24px rgba(0, 0, 0, 0.5);
+}
+
+.form-titulo {
+    margin: 0 0 12px;
+    color: var(--tinta);
+    font-size: 32px;
+}
+
+.form-rotulo {
+    margin-top: 8px;
+    color: var(--sepia);
+    font-family: var(--fonte-ficha);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.form-campo {
+    padding: 10px 12px;
+    border: 1px solid var(--sepia);
+    background: rgba(255, 255, 255, 0.4);
+    color: var(--tinta);
+    font-family: var(--fonte-texto);
+    font-size: 16px;
+}
+
+.form-campo:focus {
+    outline: 2px solid var(--ouro);
+}
+
+.form-dica {
+    margin: 0;
+    color: var(--sepia);
+    font-size: 14px;
+    font-style: italic;
+}
+
+.form-erro {
+    margin: 8px 0 0;
+    color: var(--cera);
+}
+
+.form-botoes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.form-salvar {
+    padding: 12px 28px;
+    border: none;
+    background: var(--madeira-escura);
+    color: var(--pergaminho);
+    font-family: var(--fonte-marca);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.form-salvar:hover {
+    background: var(--madeira-clara);
+}
+
+.form-salvar:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}

@@ -1,6 +1,5 @@
 import "./PaginaPersonagem.css"
 import { useParams, useNavigate, Link } from "react-router-dom"
-import personagens from "../data/personagens"
 import CapituloBasico from "./CapituloBasico"
 import CapituloTexto from "./CapituloTexto"
 import CapituloPersonalidade from "./CapituloPersonalidade"
@@ -34,7 +33,7 @@ const gruposGostos = [
     {chave: "outros", rotulo: "Outros" },
 ]
 
-function PaginaPersonagem() {
+function PaginaPersonagem({ personagens }) {
         const { id, capitulo } = useParams()
     const navegar = useNavigate()
     const personagem = personagens.find((item) => item.id === id)
