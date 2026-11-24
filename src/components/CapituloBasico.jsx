@@ -1,4 +1,4 @@
-const camposBasicos = [
+export const camposBasicos = [
     { chave: "idade", rotulo: "Idade"},
     { chave: "genero", rotulo: "Gênero"},
     { chave: "raca", rotulo: "Raça"},

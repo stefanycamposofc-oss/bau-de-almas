@@ -387,3 +387,113 @@
     border-color: var(--ouro);
     color: var(--ouro);
 }
+
+.capitulo-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.capitulo-topo h2 {
+    margin: 0;
+}
+
+.editar-capitulo {
+    padding: 4px 14px;
+    border: 1px solid var(--sepia);
+    background: none;
+    color: var(--sepia);
+    font-family: var(--fonte-texto);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.editar-capitulo:hover {
+    background: var(--sepia);
+    color: var(--pergaminho);
+}
+
+.editor {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.editor-linha {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    align-items: center;
+    gap: 12px;
+}
+
+.editor-rotulo {
+    color: var(--sepia);
+    font-family: var(--fonte-ficha);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.editor-campo,
+.editor-texto {
+    padding: 10px 12px;
+    border: 1px solid var(--sepia);
+    background: rgba(255, 255, 255, 0.4);
+    color: var(--tinta);
+    font-family: var(--fonte-texto);
+    font-size: 16px;
+}
+
+.editor-texto {
+    min-height: 300px;
+    line-height: 1.7;
+    resize: vertical;
+}
+
+.editor-campo:focus,
+.editor-texto:focus {
+    outline: 2px solid var(--ouro);
+}
+
+.editor-dica {
+    margin: 0;
+    color: var(--sepia);
+    font-size: 14px;
+    font-style: italic;
+}
+
+.editor-botoes {
+    display: flex;
+    gap: 12px;
+}
+
+.editor-salvar {
+    padding: 10px 24px;
+    border: none;
+    background: var(--madeira-escura);
+    color: var(--pergaminho);
+    font-family: var(--fonte-marca);
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.editor-salvar:hover {
+    background: var(--madeira-clara);
+}
+
+.editor-salvar:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.editor-cancelar {
+    padding: 10px 20px;
+    border: 1px solid var(--sepia);
+    background: none;
+    color: var(--sepia);
+    font-family: var(--fonte-texto);
+    font-size: 15px;
+    cursor: pointer;
+}

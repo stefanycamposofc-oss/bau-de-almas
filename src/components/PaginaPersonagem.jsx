@@ -9,6 +9,10 @@ import CapituloItens from "./CapituloItens"
 import CapituloGaleria from "./CapituloGaleria"
 import FichaDnd from "./FichaDnd"
 import FichaOrdem from "./FichaOrdem"
+import { useState } from "react"
+import { supabase } from "../lib/supabase"
+import EditorBasico from "./EditorBasico"
+import EditorTexto from "./EditorTexto"
 
 const capitulos = [
     { id: "basico", titulo: "Informações básicas"},
@@ -33,9 +37,10 @@ const gruposGostos = [
     {chave: "outros", rotulo: "Outros" },
 ]
 
-function PaginaPersonagem({ personagens }) {
-        const { id, capitulo } = useParams()
+function PaginaPersonagem({ personagens, aoSalvar }) {
+    const { id, capitulo } = useParams()
     const navegar = useNavigate()
+    const [editandoCapitulo, setEditandoCapitulo] = useState(false)
     const personagem = personagens.find((item) => item.id === id)
 
     if (!personagem) {
@@ -70,6 +75,43 @@ function PaginaPersonagem({ personagens }) {
             conteudo = <FichaOrdem ficha={dados} />
         }
     }
+    
+    const podeEditar = capituloAtual.id === "basico" || capitulosDeTexto.includes(capituloAtual.id)
+
+    async function salvarCapitulo(novoValor) {
+        const novosCapitulos = { ...personagem.capitulos, [capituloAtual.id]: novoValor }
+
+        const { error } = await supabase
+            .from("personagens")
+            .update({ capitulos: novosCapitulos })
+            .eq("id", personagem.id)
+
+        if (error) {
+            alert("Não foi possível salvar. Tente de novo.")
+            return
+        }
+
+        await aoSalvar()
+        setEditandoCapitulo(false)
+    }
+
+    if (editandoCapitulo && capituloAtual.id === "basico") {
+        conteudo = (
+            <EditorBasico
+                valorInicial={dados}
+                aoSalvar={salvarCapitulo}
+                aoCancelar={() => setEditandoCapitulo(false)}
+            />
+        )
+    } else if (editandoCapitulo && capitulosDeTexto.includes(capituloAtual.id)) {
+        conteudo = (
+            <EditorTexto
+                valorInicial={dados}
+                aoSalvar={salvarCapitulo}
+                aoCancelar={() => setEditandoCapitulo(false)}
+            />
+        )
+    }
 
     return (
         <div className= "pagina-personagem">
@@ -93,6 +135,7 @@ function PaginaPersonagem({ personagens }) {
                         replace
                         key={cap.id}
                         to={"/personagem/" + personagem.id + "/" + cap.id}
+                        onClick={() => setEditandoCapitulo(false)}
                         className={cap.id === capituloAtual.id ? "link-capitulo ativo" : "link-capitulo"}>
                             {cap.titulo}
                         </Link>
@@ -100,7 +143,12 @@ function PaginaPersonagem({ personagens }) {
             </nav>
 
             <section className="conteudo-capitulo">
-                <h2>{capituloAtual.titulo}</h2>
+                <div className="capitulo-topo">
+                    <h2>{capituloAtual.titulo}</h2>
+                    {podeEditar && !editandoCapitulo && (
+                        <button className="editar-capitulo" onClick={() => setEditandoCapitulo(true)}>Editar</button>
+                    )}
+                </div>
                 {conteudo}
             </section>
         </div>
