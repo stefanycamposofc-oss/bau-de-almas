@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { supabase } from "../lib/supabase"
 import "./FormPersonagem.css"
+import CampoImagem from "./CampoImagem"
 
 const sistemas = [
     "D&D",
@@ -125,15 +126,8 @@ function FormPersonagem({ personagens, aoSalvar }) {
                     ))}
                 </select>
 
-                <label className="form-rotulo" htmlFor="foto">Foto (caminho da imagem)</label>
-                <input
-                    id="foto"
-                    className="form-campo"
-                    placeholder="/personagens/nome/retrato.jpg"
-                    value={foto}
-                    onChange={(evento) => setFoto(evento.target.value)}
-                />
-                <p className="form-dica">Na Aula 24, isso vira um botão para enviar a imagem.</p>
+                    <span className="form-rotulo">Foto</span>
+                    <CampoImagem valor={foto} aoMudar={setFoto} />
 
                 {erro && <p className="form-erro">{erro}</p>}
 

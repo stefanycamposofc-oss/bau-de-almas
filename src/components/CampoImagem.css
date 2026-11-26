@@ -1,0 +1,49 @@
+.campo-imagem {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+.campo-imagem-previa {
+    width: 96px;
+    height: 128px;
+    object-fit: cover;
+    border: 4px solid var(--papel-envelhecido);
+}
+
+.campo-imagem-botao {
+    padding: 8px 16px;
+    border: 1px solid var(--sepia);
+    color: var(--sepia);
+    font-family: var(--fonte-texto);
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.campo-imagem-botao:hover {
+    background: var(--sepia);
+    color: var(--pergaminho);
+}
+
+.campo-imagem-remover {
+    padding: 8px 14px;
+    border: 1px solid var(--cera);
+    background: none;
+    color: var(--cera);
+    font-family: var(--fonte-texto);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.campo-imagem-remover:hover {
+    background: var(--cera);
+    color: var(--pergaminho);
+}
+
+.campo-imagem-erro {
+    width: 100%;
+    margin: 0;
+    color: var(--cera);
+    font-size: 14px;
+}
