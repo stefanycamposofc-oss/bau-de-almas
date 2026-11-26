@@ -5,7 +5,7 @@ function textoParaEditar(valor) {
     return Array.isArray(valor) ? valor.join(", ") : valor || ""
 }
 
-function  EditorCartoes({ campos, valorInicial, aoSalvar, aoCancelar }) {
+function  EditorCartoes({ campos, valorInicial, aoSalvar, aoCancelar, obrigatorio = "nome" }) {
     const [cartoes, setCartoes] = useState(valorInicial || [])
     const [salvando, setSalvando] = useState(false) 
 
@@ -25,7 +25,7 @@ function  EditorCartoes({ campos, valorInicial, aoSalvar, aoCancelar }) {
         setSalvando(true)
         
         const cartoesLimpos = cartoes
-            .filter((cartao) => cartao.nome)
+            .filter((cartao) => cartao[obrigatorio])
             .map((cartao) => {
                 const limpo = { ...cartao }
 

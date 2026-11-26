@@ -71,6 +71,10 @@ const camposArmas = [
     { chave: "efeitos", rotulo: "Efeitos (Separe por vírgula)", lista: true },
     { chave: "imagem", rotulo: "Imagem", imagem: true },
 ]
+const camposGaleria = [
+    { chave: "src", rotulo: "Imagem", imagem: true },
+    { chave: "legenda", rotulo: "Legenda" }
+]
 
 function PaginaPersonagem({ personagens, aoSalvar }) {
     const { id, capitulo } = useParams()
@@ -111,7 +115,7 @@ function PaginaPersonagem({ personagens, aoSalvar }) {
         }
     }
     
-const capitulosEditaveis = ["basico", ...capitulosDeTexto, "personalidade", "gostos", "relacoes", "vestuario", "armas"]
+const capitulosEditaveis = ["basico", ...capitulosDeTexto, "personalidade", "gostos", "relacoes", "vestuario", "armas", "galeria"]
 const temFichaPropria = personagem.sistema === "D&D" || personagem.sistema === "Ordem Paranormal"
 const podeEditar = capitulosEditaveis.includes(capituloAtual.id) || (capituloAtual.id === "ficha" && temFichaPropria)
 
@@ -201,6 +205,16 @@ const podeEditar = capitulosEditaveis.includes(capituloAtual.id) || (capituloAtu
         conteudo = (
             <EditorCartoes
                 campos={camposArmas}
+                valorInicial={dados}
+                aoSalvar={salvarCapitulo}
+                aoCancelar={() => setEditandoCapitulo(false)}
+            />
+        )
+    } else if (editandoCapitulo && capituloAtual.id === "galeria") {
+        conteudo = (
+            <EditorCartoes
+                campos={camposGaleria}
+                obrigatorio="src"
                 valorInicial={dados}
                 aoSalvar={salvarCapitulo}
                 aoCancelar={() => setEditandoCapitulo(false)}
