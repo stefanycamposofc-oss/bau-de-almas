@@ -1,4 +1,5 @@
 import { useState } from "react"
+import CampoImagem from "./CampoImagem"
 
 function textoParaEditar(valor) {
     return Array.isArray(valor) ? valor.join(", ") : valor || ""
@@ -48,7 +49,15 @@ function  EditorCartoes({ campos, valorInicial, aoSalvar, aoCancelar }) {
         <div className="editor">
             {cartoes.map((cartao, indice) => (
                 <div className="editor-cartao" key={indice}>
-                    {campos.map((campo) => (
+                    {campos.map((campo) => campo.imagem ? (
+                        <div className="editor-grupo" key={campo.chave}>
+                            <span className="editor-rotulo">{campo.rotulo}</span>
+                            <CampoImagem
+                                valor={cartao[campo.chave] || ""}
+                                aoMudar={(endereco) => mudarCampo(indice, campo.chave, endereco)}
+                            />
+                        </div>
+                    ) : (
                         <label className="editor-grupo" key={campo.chave}>
                             <span className="editor-rotulo">{campo.rotulo}</span>
                             {campo.grande ? (

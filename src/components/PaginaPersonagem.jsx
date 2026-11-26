@@ -57,19 +57,19 @@ const camposRelacoes = [
     { chave: "nome", rotulo: "Nome" },
     { chave: "tipo", rotulo: "Tipo de relação" },
     { chave: "descricao", rotulo: "Descrição", grande: true },
-    { chave: "foto", rotulo: "Foto (caminho)" },
+    { chave: "foto", rotulo: "Foto", imagem: true },
 ]
 const camposVestuario = [
     { chave: "nome", rotulo: "Nome" },
     { chave: "descricao", rotulo: "Descrição", grande: true },
-    { chave: "imagem", rotulo: "Imagem (caminho)" },
+    { chave: "imagem", rotulo: "Imagem", imagem: true },
 ]
 const camposArmas = [
     { chave: "nome", rotulo: "Nome" },
     { chave: "dano", rotulo: "Dano" },
     { chave: "descricao", rotulo: "Descrição", grande: true },
     { chave: "efeitos", rotulo: "Efeitos (Separe por vírgula)", lista: true },
-    { chave: "imagem", rotulo: "Imagem (caminho)" },
+    { chave: "imagem", rotulo: "Imagem", imagem: true },
 ]
 
 function PaginaPersonagem({ personagens, aoSalvar }) {
