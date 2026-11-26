@@ -6,6 +6,7 @@ import PaginaPersonagem from "./components/PaginaPersonagem"
 import Login from "./components/Login"
 import { supabase } from "./lib/supabase"
 import FormPersonagem from "./components/FormPersonagem"
+import Entrada from "./components/Entrada"
 
 function App() {
   const [busca, setBusca] = useState("")
@@ -65,7 +66,7 @@ function App() {
   }
 
   if (!sessao) {
-    return <Login />
+    return <Entrada />
   }
 
     
