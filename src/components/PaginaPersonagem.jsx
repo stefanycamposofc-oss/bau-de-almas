@@ -18,6 +18,7 @@ import { gruposPersonalidade } from "./CapituloPersonalidade"
 import EditorFicha from "./EditorFicha"
 import { atributosDnd } from "./FichaDnd"
 import { atributosOrdem } from "./FichaOrdem"
+import EditorCartoes from "./EditorCartoes"
 
 const capitulos = [
     { id: "basico", titulo: "Informações básicas"},
@@ -51,6 +52,24 @@ const camposFichaOrdem = [
     { chave: "pv", rotulo: "PV" },
     { chave: "pe", rotulo: "PE" },
     { chave: "sanidade", rotulo: "Sanidade" },
+]
+const camposRelacoes = [
+    { chave: "nome", rotulo: "Nome" },
+    { chave: "tipo", rotulo: "Tipo de relação" },
+    { chave: "descricao", rotulo: "Descrição", grande: true },
+    { chave: "foto", rotulo: "Foto (caminho)" },
+]
+const camposVestuario = [
+    { chave: "nome", rotulo: "Nome" },
+    { chave: "descricao", rotulo: "Descrição", grande: true },
+    { chave: "imagem", rotulo: "Imagem (caminho)" },
+]
+const camposArmas = [
+    { chave: "nome", rotulo: "Nome" },
+    { chave: "dano", rotulo: "Dano" },
+    { chave: "descricao", rotulo: "Descrição", grande: true },
+    { chave: "efeitos", rotulo: "Efeitos (Separe por vírgula)", lista: true },
+    { chave: "imagem", rotulo: "Imagem (caminho)" },
 ]
 
 function PaginaPersonagem({ personagens, aoSalvar }) {
@@ -92,7 +111,7 @@ function PaginaPersonagem({ personagens, aoSalvar }) {
         }
     }
     
-const capitulosEditaveis = ["basico", ...capitulosDeTexto, "personalidade", "gostos"]
+const capitulosEditaveis = ["basico", ...capitulosDeTexto, "personalidade", "gostos", "relacoes", "vestuario", "armas"]
 const temFichaPropria = personagem.sistema === "D&D" || personagem.sistema === "Ordem Paranormal"
 const podeEditar = capitulosEditaveis.includes(capituloAtual.id) || (capituloAtual.id === "ficha" && temFichaPropria)
 
@@ -155,6 +174,33 @@ const podeEditar = capitulosEditaveis.includes(capituloAtual.id) || (capituloAtu
             <EditorFicha
                 campos={ehDnd ? camposFichaDnd : camposFichaOrdem}
                 atributos={ehDnd ? atributosDnd : atributosOrdem}
+                valorInicial={dados}
+                aoSalvar={salvarCapitulo}
+                aoCancelar={() => setEditandoCapitulo(false)}
+            />
+        )
+    } else if (editandoCapitulo && capituloAtual.id === "relacoes") {
+        conteudo = (
+            <EditorCartoes
+                campos={camposRelacoes}
+                valorInicial={dados}
+                aoSalvar={salvarCapitulo}
+                aoCancelar={() => setEditandoCapitulo(false)}
+            />
+        )
+    } else if (editandoCapitulo && capituloAtual.id === "vestuario") {
+        conteudo =(
+            <EditorCartoes
+                campos={camposVestuario}
+                valorInicial={dados}
+                aoSalvar={salvarCapitulo}
+                aoCancelar={() => setEditandoCapitulo(false)}
+            />
+        )
+    } else if (editandoCapitulo && capituloAtual.id === "armas") {
+        conteudo = (
+            <EditorCartoes
+                campos={camposArmas}
                 valorInicial={dados}
                 aoSalvar={salvarCapitulo}
                 aoCancelar={() => setEditandoCapitulo(false)}

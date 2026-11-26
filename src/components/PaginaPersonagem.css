@@ -529,3 +529,38 @@
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
     gap: 12px;
 }
+
+.editor-cartao {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px;
+    border: 1px solid var(--sepia);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.editor-texto-curto {
+    min-height: 90px;
+    line-height: 1.6;
+    resize: vertical;
+}
+
+.editor-remover {
+    align-self: flex-start;
+    padding: 6px 14px;
+    border: 1px solid var(--cera);
+    background: none;
+    color: var(--cera);
+    font-family: var(--fonte-texto);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.editor-remover:hover {
+    background: var(--cera);
+    color: var(--pergaminho);
+}
+
+.editor-novo {
+    align-self: flex-start;
+}
