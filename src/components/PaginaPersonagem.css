@@ -262,8 +262,15 @@
     gap: 12px;
 }
 
+.galeria-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
 .miniatura {
     padding: 0;
+    position: relative;
     overflow: hidden;
     aspect-ratio: 3 / 4;
     border: 6px solid var(--papel-envelhecido);
@@ -281,6 +288,22 @@
 
 .miniatura:hover img {
     transform: scale(1.05);
+}
+
+.miniatura-legenda {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 6px 10px;
+    background: rgba(0, 0, 0, 0.55);
+    color: var(--luar);
+    font-family: var(--fonte-texto);
+    font-size: 14px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .lightbox {
@@ -413,6 +436,10 @@
 .editar-capitulo:hover {
     background: var(--sepia);
     color: var(--pergaminho);
+}
+
+.editar-item {
+    margin-top: 12px;
 }
 
 .editor {

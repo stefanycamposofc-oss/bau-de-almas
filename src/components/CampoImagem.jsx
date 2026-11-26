@@ -48,7 +48,7 @@ function CampoImagem({ valor, aoMudar }) {
             </label>
 
             {valor && !enviando && (
-                <button className="campo-imagem-remover" type="button" onClick={() => aoMudar("")}>
+                <button className="campo-imagem-remover" type="button" onClick={() => window.confirm("Remover esta imagem?") && aoMudar("")}>
                     Remover imagem
                 </button>
             )}

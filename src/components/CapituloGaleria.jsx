@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-function CapituloGaleria({ imagens }) {
+function CapituloGaleria({ imagens, aoEditar }) {
     const [aberta, setAberta] = useState(null)
 
     if (imagens.length === 0) {
@@ -11,9 +11,13 @@ function CapituloGaleria({ imagens }) {
         <>
             <div className="galeria-imagens">
                 {imagens.map((imagem, indice) => (
-                    <button className="miniatura" key={indice} onClick={() => setAberta(imagem)}>
+                <div className="galeria-item" key={indice}>
+                    <button className="miniatura" onClick={() => setAberta(imagem)}>
                         <img src={imagem.src} alt={imagem.legenda} />
+                        {imagem.legenda && <span className="miniatura-legenda">{imagem.legenda}</span>}
                     </button>
+                    <button className="editar-capitulo" onClick={() => aoEditar(indice)}>Editar</button>
+                </div>
                 ))}
             </div>
 

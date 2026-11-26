@@ -1,11 +1,11 @@
-function CapituloRelacoes({ relacoes }) {
+function CapituloRelacoes({ relacoes, aoEditar }) {
     if (relacoes.length === 0) {
         return <p className="em-breve">Nenhuma relação anotada.</p>
     }
 
     return (
         <div className="relacoes">
-            {relacoes.map((relacao) => (
+            {relacoes.map((relacao, indice) => (
                 <article className="relacao" key={relacao.nome}>
                     {relacao.foto && (
                         <img className="relacao-foto" src={relacao.foto} alt={relacao.nome} />
@@ -13,6 +13,7 @@ function CapituloRelacoes({ relacoes }) {
                     <span className="relacao-tipo">{relacao.tipo}</span>
                     <h3 className="relacao-nome">{relacao.nome}</h3>
                     <p className="relacao-descricao">{relacao.descricao}</p>
+                    <button className="editar-capitulo editar-item" onClick={() => aoEditar(indice)}>Editar</button>
                 </article>
             ))}
         </div>

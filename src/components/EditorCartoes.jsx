@@ -5,7 +5,7 @@ function textoParaEditar(valor) {
     return Array.isArray(valor) ? valor.join(", ") : valor || ""
 }
 
-function  EditorCartoes({ campos, valorInicial, aoSalvar, aoCancelar, obrigatorio = "nome" }) {
+function  EditorCartoes({ campos, valorInicial, aoSalvar, aoCancelar, obrigatorio = "nome", unico = false }) {
     const [cartoes, setCartoes] = useState(valorInicial || [])
     const [salvando, setSalvando] = useState(false) 
 
@@ -17,9 +17,17 @@ function  EditorCartoes({ campos, valorInicial, aoSalvar, aoCancelar, obrigatori
         setCartoes([...cartoes, {}])
     }
 
-    function removerCartao(indice) {
-        setCartoes(cartoes.filter((_cartao, i) => i !== indice))
+function removerCartao(indice) {
+    if (!window.confirm("Tem certeza que quer remover este item?")) {
+        return
     }
+    if (unico) {
+        aoSalvar([])
+        return
+    }
+
+    setCartoes(cartoes.filter((_cartao, i) => i !== indice))
+}
 
     async function salvar() {
         setSalvando(true)
@@ -82,9 +90,11 @@ function  EditorCartoes({ campos, valorInicial, aoSalvar, aoCancelar, obrigatori
                 </div>
             ))}
 
-            <button className="editor-cancelar editor-novo" type="button" onClick={adicionarCartao}>
-                + Adicionar
-            </button>
+            {!unico && (
+                <button className="editor-cancelar editor-novo" type="button" onClick={adicionarCartao}>
+                    + Adicionar
+                </button>
+            )}    
 
             <div className="editor-botoes">
                 <button className="editor-salvar" onClick={salvar} disabled={salvando}>

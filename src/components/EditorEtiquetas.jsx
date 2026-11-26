@@ -19,6 +19,11 @@ function EditorEtiquetas({ grupos, campoTexto, valorInicial, aoSalvar, aoCancela
 
     function remover(chave, indice) {
         const lista = valores[chave] || []
+
+        if (!window.confirm('Remover "' + lista[indice] + '"?')) {
+            return
+        }
+        
         setValores({ ...valores, [chave]: lista.filter((_item, i) => i !== indice) })
     }
 

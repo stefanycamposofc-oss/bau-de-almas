@@ -80,6 +80,7 @@ function PaginaPersonagem({ personagens, aoSalvar }) {
     const { id, capitulo } = useParams()
     const navegar = useNavigate()
     const [editandoCapitulo, setEditandoCapitulo] = useState(false)
+    const [cartaoEditando, setCartaoEditando] = useState(null)
     const personagem = personagens.find((item) => item.id === id)
 
     if (!personagem) {
@@ -102,11 +103,11 @@ function PaginaPersonagem({ personagens, aoSalvar }) {
     } else if (capituloAtual.id === "gostos" && dados) {
         conteudo = <CapituloEtiquetas grupos={gruposGostos} dados={dados}/>
     } else if (capituloAtual.id === "relacoes" && dados) {
-        conteudo = <CapituloRelacoes relacoes={dados} />
+        conteudo = <CapituloRelacoes relacoes={dados} aoEditar={setCartaoEditando} />
     } else if (["vestuario", "armas"].includes(capituloAtual.id) && dados) {
-        conteudo = <CapituloItens itens={dados} />
+        conteudo = <CapituloItens itens={dados} aoEditar={setCartaoEditando} />
     } else if (capituloAtual.id === "galeria" && dados) {
-        conteudo = <CapituloGaleria imagens={dados} />
+        conteudo = <CapituloGaleria imagens={dados} aoEditar={setCartaoEditando} />
     } else if (capituloAtual.id === "ficha" && dados) {
         if (personagem.sistema === "D&D"){
             conteudo = <FichaDnd ficha={dados} />
@@ -118,6 +119,8 @@ function PaginaPersonagem({ personagens, aoSalvar }) {
 const capitulosEditaveis = ["basico", ...capitulosDeTexto, "personalidade", "gostos", "relacoes", "vestuario", "armas", "galeria"]
 const temFichaPropria = personagem.sistema === "D&D" || personagem.sistema === "Ordem Paranormal"
 const podeEditar = capitulosEditaveis.includes(capituloAtual.id) || (capituloAtual.id === "ficha" && temFichaPropria)
+const camposDosCartoes = { relacoes: camposRelacoes, vestuario: camposVestuario, armas: camposArmas, galeria: camposGaleria}
+const ehCartoes = capituloAtual.id in camposDosCartoes
 
     async function salvarCapitulo(novoValor) {
         const novosCapitulos = { ...personagem.capitulos, [capituloAtual.id]: novoValor }
@@ -134,6 +137,13 @@ const podeEditar = capitulosEditaveis.includes(capituloAtual.id) || (capituloAtu
 
         await aoSalvar()
         setEditandoCapitulo(false)
+        setCartaoEditando(null)
+    }
+
+    async function salvarCartao(cartoes) {
+        const novaLista = [...(dados || [])]
+        novaLista.splice(cartaoEditando, 1, ...cartoes)
+        await salvarCapitulo(novaLista)
     }
 
     if (editandoCapitulo && capituloAtual.id === "basico") {
@@ -183,41 +193,17 @@ const podeEditar = capitulosEditaveis.includes(capituloAtual.id) || (capituloAtu
                 aoCancelar={() => setEditandoCapitulo(false)}
             />
         )
-    } else if (editandoCapitulo && capituloAtual.id === "relacoes") {
+    } else if (cartaoEditando !== null) {
+        const lista = dados || []
+
         conteudo = (
             <EditorCartoes
-                campos={camposRelacoes}
-                valorInicial={dados}
-                aoSalvar={salvarCapitulo}
-                aoCancelar={() => setEditandoCapitulo(false)}
-            />
-        )
-    } else if (editandoCapitulo && capituloAtual.id === "vestuario") {
-        conteudo =(
-            <EditorCartoes
-                campos={camposVestuario}
-                valorInicial={dados}
-                aoSalvar={salvarCapitulo}
-                aoCancelar={() => setEditandoCapitulo(false)}
-            />
-        )
-    } else if (editandoCapitulo && capituloAtual.id === "armas") {
-        conteudo = (
-            <EditorCartoes
-                campos={camposArmas}
-                valorInicial={dados}
-                aoSalvar={salvarCapitulo}
-                aoCancelar={() => setEditandoCapitulo(false)}
-            />
-        )
-    } else if (editandoCapitulo && capituloAtual.id === "galeria") {
-        conteudo = (
-            <EditorCartoes
-                campos={camposGaleria}
-                obrigatorio="src"
-                valorInicial={dados}
-                aoSalvar={salvarCapitulo}
-                aoCancelar={() => setEditandoCapitulo(false)}
+                campos={camposDosCartoes[capituloAtual.id]}
+                obrigatorio={capituloAtual.id === "galeria" ? "src" : "nome"}
+                valorInicial={[lista[cartaoEditando] || {}]}
+                unico
+                aoSalvar={salvarCartao}
+                aoCancelar={() => setCartaoEditando(null)}
             />
         )
     }
@@ -244,7 +230,10 @@ const podeEditar = capitulosEditaveis.includes(capituloAtual.id) || (capituloAtu
                         replace
                         key={cap.id}
                         to={"/personagem/" + personagem.id + "/" + cap.id}
-                        onClick={() => setEditandoCapitulo(false)}
+                        onClick={() => {
+                            setEditandoCapitulo(false)
+                            setCartaoEditando(null)
+                        }}
                         className={cap.id === capituloAtual.id ? "link-capitulo ativo" : "link-capitulo"}>
                             {cap.titulo}
                         </Link>
@@ -254,8 +243,12 @@ const podeEditar = capitulosEditaveis.includes(capituloAtual.id) || (capituloAtu
             <section className="conteudo-capitulo">
                 <div className="capitulo-topo">
                     <h2>{capituloAtual.titulo}</h2>
-                    {podeEditar && !editandoCapitulo && (
-                        <button className="editar-capitulo" onClick={() => setEditandoCapitulo(true)}>Editar</button>
+                    {podeEditar && !editandoCapitulo && cartaoEditando === null && (
+                        ehCartoes ? (
+                            <button className="editar-capitulo" onClick={() => setCartaoEditando((dados || []).length)}>+ Adicionar</button>
+                        ) : (
+                            <button className="editar-capitulo" onClick={() => setEditandoCapitulo(true)}>Editar</button>
+                        )
                     )}
                 </div>
                 {conteudo}

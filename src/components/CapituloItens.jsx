@@ -1,11 +1,11 @@
-function CapituloItens({ itens }) {
+function CapituloItens({ itens, aoEditar }) {
     if (itens.length === 0) {
         return <p className="em-breve">Nada anotado.</p>
     }
 
     return (
         <div className="itens">
-            {itens.map((item) => (
+            {itens.map((item, indice) => (
                 <article className="item" key={item.nome}>
                     {item.imagem ? (
                         <img className="item-imagem" src={item.imagem} alt={item.nome} />
@@ -25,6 +25,7 @@ function CapituloItens({ itens }) {
                                 ))}
                             </ul>
                         )}
+                        <button className="editar-capitulo editar-item" onClick={() => aoEditar(indice)}>Editar</button>
                     </div>
                 </article>
             ))}
