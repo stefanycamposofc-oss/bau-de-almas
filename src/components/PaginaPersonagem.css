@@ -122,6 +122,23 @@
     font-size: 18px;
 }
 
+
+.dado-texto p {
+    margin: 0 0 8px;
+}
+
+.dado-texto p:last-child {
+    margin-bottom: 0;
+}
+
+.dado-texto blockquote {
+    margin: 0 0 8px;
+    padding-left: 12px;
+    border-left: 3px solid var(--ouro);
+    color: var(--sepia);
+    font-style: italic;
+}
+
 .texto-capitulo p {
     margin: 0 0 16px;
     font-size: 18px;

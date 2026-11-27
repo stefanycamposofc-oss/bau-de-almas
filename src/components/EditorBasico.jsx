@@ -20,12 +20,21 @@ function EditorBasico({ valorInicial, aoSalvar, aoCancelar }) {
             {camposBasicos.map((campo) => (
                 <div className="editor-linha" key={campo.chave}>
                     <label className="editor-rotulo" htmlFor={campo.chave}>{campo.rotulo}</label>
-                    <input
-                        id={campo.chave}
-                        className="editor-campo"
-                        value={valores[campo.chave] || ""}
-                        onChange={(evento) => mudarCampo(campo.chave, evento.target.value)}
-                    />
+                    {campo.grande ? (
+                        <textarea
+                            id={campo.chave}
+                            className="editor-campo editor-texto-curto"
+                            value={valores[campo.chave] || ""}
+                            onChange={(evento) => mudarCampo(campo.chave, evento.target.value)}
+                        />
+                    ) : (
+                        <input
+                            id={campo.chave}
+                            className="editor-campo"
+                            value={valores[campo.chave] || ""}
+                            onChange={(evento) => mudarCampo(campo.chave, evento.target.value)}
+                        />
+                    )}
                 </div>
             ))}
 
