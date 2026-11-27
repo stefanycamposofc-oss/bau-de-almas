@@ -56,6 +56,11 @@ const camposFichaOrdem = [
     { chave: "pe", rotulo: "PE" },
     { chave: "sanidade", rotulo: "Sanidade" },
 ]
+const camposTextoOrdem = [
+    { chave: "classe", rotulo: "Classe" },
+    { chave: "trilha", rotulo: "Trilha" },
+    { chave: "origem", rotulo: "Origem" },
+]
 const camposRelacoes = [
     { chave: "nome", rotulo: "Nome" },
     { chave: "tipo", rotulo: "Tipo de relação" },
@@ -226,6 +231,7 @@ const ehCartoes = capituloAtual.id in camposDosCartoes
         conteudo = (
             <EditorFicha
                 campos={ehDnd ? camposFichaDnd : camposFichaOrdem}
+                campoTexto={ehDnd ? [] : camposTextoOrdem}
                 atributos={ehDnd ? atributosDnd : atributosOrdem}
                 pericias={ehDnd ? periciasDnd : periciasOrdem}
                 graus={ehDnd ? grausDnd : grausOrdem}

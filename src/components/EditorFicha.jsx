@@ -1,7 +1,6 @@
 import { useState } from "react"
 
-function EditorFicha({ campos, atributos, pericias, graus, valorInicial, aoSalvar, aoCancelar }) {
-    const inicial = valorInicial || {}
+function EditorFicha({ campos, camposTexto = [], atributos, pericias, graus, valorInicial, aoSalvar, aoCancelar }) {    const inicial = valorInicial || {}
     const [valores, setValores] = useState(inicial)
     const [valoresAtributos, setValoresAtributos] = useState(inicial.atributos || {})
     const [valoresPericias, setValoresPericias] = useState(inicial.pericias || {})
@@ -16,6 +15,10 @@ function EditorFicha({ campos, atributos, pericias, graus, valorInicial, aoSalva
             fichaNova[campo.chave] = Number(valores[campo.chave]) || 0
         })
 
+        camposTexto.foEach((campo) => {
+            fichaNova[campo.chave] = (valores[campo.chave] || "").trim()
+        })
+
         atributos.forEach((atributo) => {
             fichaNova.atributos[atributo.chave] = Number(valoresAtributos[atributo.chave]) || 0
         })
@@ -26,6 +29,20 @@ function EditorFicha({ campos, atributos, pericias, graus, valorInicial, aoSalva
 
     return (
         <div className="editor">
+                        {camposTexto.length > 0 && (
+                <div className="editor-numeros editor-textos">
+                    {camposTexto.map((campo) => (
+                        <label className="editor-grupo" key={campo.chave}>
+                            <span className="editor-rotulo">{campo.rotulo}</span>
+                            <input
+                                className="editor-campo"
+                                value={valores[campo.chave] || ""}
+                                onChange={(evento) => setValores({ ...valores, [campo.chave]: evento.target.value })}
+                            />
+                        </label>
+                    ))}
+                </div>
+            )}
             <div className="editor-numeros">
                 {campos.map((campo) => (
                     <label className="editor-grupo" key={campo.chave}>

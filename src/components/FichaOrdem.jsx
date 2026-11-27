@@ -44,6 +44,12 @@ const marcas = ["○", "●", "◆", "★"]
 function FichaOrdem({ ficha }) {
     const pericias = ficha.pericias || {}
 
+    const identidade = [
+        { rotulo: "Classe", valor: ficha.classe },
+        { rotulo: "Trilha", valor: ficha.trilha },
+        { rotulo: "Origem", valor: ficha.origem },
+    ].filter((item) => item.valor)
+
     const resumo = [
         { rotulo: "NEX", valor: ficha.nex + "%" },
         { rotulo: "PV", valor: ficha.pv },
@@ -53,6 +59,16 @@ function FichaOrdem({ ficha }) {
 
     return (
         <div className="ficha-rpg">
+            {identidade.length > 0 && (
+                <dl className="ficha-identidade">
+                    {identidade.map((item) => (
+                        <div key={item.rotulo}>
+                            <dt>{item.rotulo}</dt>
+                            <dd>{item.valor}</dd>
+                        </div>
+                    ))}
+                </dl>
+            )}
             <div className="ficha-resumo">
                 {resumo.map((item) => (
                     <div className="ficha-stat" key={item.rotulo}>

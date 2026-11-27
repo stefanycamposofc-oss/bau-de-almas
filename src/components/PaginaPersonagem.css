@@ -468,6 +468,26 @@
     text-align: center;
 }
 
+.ficha-identidade {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 40px;
+    margin: 0 0 24px;
+}
+
+.ficha-identidade dt {
+    color: var(--sepia);
+    font-family: var(--fonte-ficha);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.ficha-identidade dd {
+    margin: 2px 0 0;
+    color: var(--tinta);
+    font-size: 20px;
+}
 
 .ficha-secao {
     margin: 32px 0 12px;
@@ -687,6 +707,9 @@
     gap: 12px;
 }
 
+.editor-textos {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
 
 .editor-pericias {
     display: grid;
