@@ -128,6 +128,47 @@
     line-height: 1.7;
 }
 
+
+.texto-capitulo ul,
+.texto-capitulo ol {
+    margin: 0 0 16px;
+    padding-left: 24px;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.texto-capitulo li {
+    margin-bottom: 6px;
+}
+
+.texto-capitulo li p {
+    margin: 0;
+}
+
+.texto-capitulo h3,
+.texto-capitulo h4 {
+    margin: 24px 0 8px;
+    color: var(--tinta);
+}
+
+.texto-capitulo strong {
+    color: var(--madeira-escura);
+}
+
+.texto-capitulo blockquote {
+    margin: 0 0 16px;
+    padding-left: 16px;
+    border-left: 3px solid var(--ouro);
+    color: var(--sepia);
+    font-style: italic;
+}
+
+.texto-capitulo hr {
+    margin: 24px 0;
+    border: none;
+    border-top: 1px dotted var(--sepia);
+}
+
 .grupos-etiquetas {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

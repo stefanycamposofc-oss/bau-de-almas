@@ -1,11 +1,10 @@
-function CapituloTexto({ texto }) {
-    const paragrafos = texto.split("\n\n")
+import Markdown from "react-markdown"
+import remarkBreaks from "remark-breaks"
 
+function CapituloTexto({ texto }) {
     return (
         <div className="texto-capitulo">
-            {paragrafos.map((paragrafo, indice) => (
-                <p key={indice}>{paragrafo}</p>
-            ))}
+            <Markdown remarkPlugins={[remarkBreaks]}>{texto}</Markdown>
         </div>
     )
 }

@@ -17,7 +17,7 @@ function EditorTexto({ valorInicial, aoSalvar, aoCancelar }) {
                 value={texto}
                 onChange={(evento) => setTexto(evento.target.value)}
             />
-            <p className="editor-dica">Deixe uma linha em branco para começar um novo parágrafo.</p>
+            <p className="editor-dica">**negrito** · *itálico* · - lista · &gt; citação · ### título · linha em branco = novo parágrafo</p>
 
             <div className="editor-botoes">
                 <button className="editor-salvar" onClick={salvar} disabled={salvando}>
