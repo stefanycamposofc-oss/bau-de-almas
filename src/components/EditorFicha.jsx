@@ -15,7 +15,7 @@ function EditorFicha({ campos, camposTexto = [], atributos, pericias, graus, val
             fichaNova[campo.chave] = Number(valores[campo.chave]) || 0
         })
 
-        camposTexto.foEach((campo) => {
+        camposTexto.forEach((campo) => {
             fichaNova[campo.chave] = (valores[campo.chave] || "").trim()
         })
 

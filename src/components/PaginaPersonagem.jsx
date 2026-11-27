@@ -231,7 +231,7 @@ const ehCartoes = capituloAtual.id in camposDosCartoes
         conteudo = (
             <EditorFicha
                 campos={ehDnd ? camposFichaDnd : camposFichaOrdem}
-                campoTexto={ehDnd ? [] : camposTextoOrdem}
+                camposTexto={ehDnd ? [] : camposTextoOrdem}
                 atributos={ehDnd ? atributosDnd : atributosOrdem}
                 pericias={ehDnd ? periciasDnd : periciasOrdem}
                 graus={ehDnd ? grausDnd : grausOrdem}
