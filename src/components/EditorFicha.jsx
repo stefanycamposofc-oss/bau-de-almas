@@ -1,15 +1,16 @@
 import { useState } from "react"
 
-function EditorFicha({ campos, atributos, valorInicial, aoSalvar, aoCancelar }) {
+function EditorFicha({ campos, atributos, pericias, graus, valorInicial, aoSalvar, aoCancelar }) {
     const inicial = valorInicial || {}
     const [valores, setValores] = useState(inicial)
     const [valoresAtributos, setValoresAtributos] = useState(inicial.atributos || {})
+    const [valoresPericias, setValoresPericias] = useState(inicial.pericias || {})
     const [salvando, setSalvando] = useState(false)
 
     async function salvar() {
         setSalvando(true)
 
-        const fichaNova = { atributos: {} }
+        const fichaNova = { ...inicial, atributos: {}, pericias: valoresPericias }
 
         campos.forEach((campo) => {
             fichaNova[campo.chave] = Number(valores[campo.chave]) || 0
@@ -23,7 +24,7 @@ function EditorFicha({ campos, atributos, valorInicial, aoSalvar, aoCancelar }) 
         setSalvando(false)
     }
 
-     return (
+    return (
         <div className="editor">
             <div className="editor-numeros">
                 {campos.map((campo) => (
@@ -52,6 +53,26 @@ function EditorFicha({ campos, atributos, valorInicial, aoSalvar, aoCancelar }) 
                                 setValoresAtributos({ ...valoresAtributos, [atributo.chave]: evento.target.value })
                             }
                         />
+                    </label>
+                ))}
+            </div>
+
+            <span className="editor-rotulo">Perícias</span>
+            <div className="editor-pericias">
+                {pericias.map((pericia) => (
+                    <label className="editor-pericia" key={pericia.chave}>
+                        <span>{pericia.nome}</span>
+                        <select
+                            className="editor-campo"
+                            value={valoresPericias[pericia.chave] || 0}
+                            onChange={(evento) =>
+                                setValoresPericias({ ...valoresPericias, [pericia.chave]: Number(evento.target.value) })
+                            }
+                        >
+                            {graus.map((grau, indice) => (
+                                <option key={grau} value={indice}>{grau}</option>
+                            ))}
+                        </select>
                     </label>
                 ))}
             </div>

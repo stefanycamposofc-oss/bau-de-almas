@@ -16,8 +16,8 @@ import EditorTexto from "./EditorTexto"
 import EditorEtiquetas from "./EditorEtiquetas"
 import { gruposPersonalidade } from "./CapituloPersonalidade"
 import EditorFicha from "./EditorFicha"
-import { atributosDnd } from "./FichaDnd"
-import { atributosOrdem } from "./FichaOrdem"
+import { atributosDnd, periciasDnd, grausDnd } from "./FichaDnd"
+import { atributosOrdem, periciasOrdem, grausOrdem } from "./FichaOrdem"
 import EditorCartoes from "./EditorCartoes"
 
 const capitulos = [
@@ -196,6 +196,8 @@ const ehCartoes = capituloAtual.id in camposDosCartoes
             <EditorFicha
                 campos={ehDnd ? camposFichaDnd : camposFichaOrdem}
                 atributos={ehDnd ? atributosDnd : atributosOrdem}
+                pericias={ehDnd ? periciasDnd : periciasOrdem}
+                graus={ehDnd ? grausDnd : grausOrdem}
                 valorInicial={dados}
                 aoSalvar={salvarCapitulo}
                 aoCancelar={() => setEditandoCapitulo(false)}

@@ -467,6 +467,63 @@
     text-align: center;
 }
 
+
+.ficha-secao {
+    margin: 32px 0 12px;
+    color: var(--tinta);
+    font-size: 22px;
+}
+
+.pericias {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 0 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pericia {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px dotted var(--sepia);
+    color: var(--sepia);
+}
+
+.pericia.treinada {
+    color: var(--tinta);
+    font-weight: 600;
+}
+
+.pericia-marca {
+    width: 14px;
+    color: var(--madeira-clara);
+}
+
+.pericia-nome {
+    flex: 1;
+}
+
+.pericia-atributo {
+    font-family: var(--fonte-ficha);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+}
+
+.pericia-bonus {
+    min-width: 40px;
+    text-align: right;
+}
+
+.ficha-legenda {
+    margin: 12px 0 0;
+    color: var(--sepia);
+    font-size: 13px;
+    font-style: italic;
+}
+
 .editar {
     margin-top: 12px;
     padding: 6px 16px;
@@ -627,6 +684,20 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
     gap: 12px;
+}
+
+
+.editor-pericias {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px 16px;
+}
+
+.editor-pericia {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 15px;
 }
 
 .editor-cartao {
