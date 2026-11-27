@@ -1,3 +1,5 @@
+import TextoFormatado from "./TextoFormatado"
+
 function CapituloItens({ itens, aoEditar }) {
     if (itens.length === 0) {
         return <p className="em-breve">Nada anotado.</p>
@@ -16,7 +18,7 @@ function CapituloItens({ itens, aoEditar }) {
                     <div className="item-texto">
                         <h3 className="item-nome">{item.nome}</h3>
                         {item.dano && <p className="item-dano">Dano: {item.dano}</p>}
-                        <p className="item-descricao">{item.descricao}</p>
+                        <TextoFormatado texto={item.descricao} className="item-descricao" />
 
                         {item.efeitos && item.efeitos.length > 0 && (
                             <ul className="etiquetas">

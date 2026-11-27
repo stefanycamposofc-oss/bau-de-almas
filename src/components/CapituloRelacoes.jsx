@@ -1,3 +1,5 @@
+import TextoFormatado from "./TextoFormatado"
+
 function CapituloRelacoes({ relacoes, aoEditar }) {
     if (relacoes.length === 0) {
         return <p className="em-breve">Nenhuma relação anotada.</p>
@@ -12,7 +14,7 @@ function CapituloRelacoes({ relacoes, aoEditar }) {
                     )}
                     <span className="relacao-tipo">{relacao.tipo}</span>
                     <h3 className="relacao-nome">{relacao.nome}</h3>
-                    <p className="relacao-descricao">{relacao.descricao}</p>
+                    <TextoFormatado texto={relacao.descricao} className="relacao-descricao" />
                     <button className="editar-capitulo editar-item" onClick={() => aoEditar(indice)}>Editar</button>
                 </article>
             ))}

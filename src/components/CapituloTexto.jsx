@@ -1,12 +1,7 @@
-import Markdown from "react-markdown"
-import remarkBreaks from "remark-breaks"
+import TextoFormatado from "./TextoFormatado"
 
 function CapituloTexto({ texto }) {
-    return (
-        <div className="texto-capitulo">
-            <Markdown remarkPlugins={[remarkBreaks]}>{texto}</Markdown>
-        </div>
-    )
+    return <TextoFormatado texto={texto} className="texto-capitulo" />
 }
 
 export default CapituloTexto
