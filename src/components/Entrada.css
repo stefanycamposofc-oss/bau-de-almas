@@ -171,6 +171,17 @@
     to { transform: scale(1.08); }
 }
 
+@media (max-width: 700px) {
+    .bau {
+        width: min(72vw, 360px);
+        bottom: 12vh;
+    }
+
+    .entrada-botao {
+        bottom: 5vh;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .entrada,
     .cena,

@@ -9,7 +9,7 @@ import CapituloItens from "./CapituloItens"
 import CapituloGaleria from "./CapituloGaleria"
 import FichaDnd from "./FichaDnd"
 import FichaOrdem from "./FichaOrdem"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { supabase } from "../lib/supabase"
 import EditorBasico from "./EditorBasico"
 import EditorTexto from "./EditorTexto"
@@ -81,6 +81,14 @@ function PaginaPersonagem({ personagens, aoSalvar }) {
     const navegar = useNavigate()
     const [editandoCapitulo, setEditandoCapitulo] = useState(false)
     const [cartaoEditando, setCartaoEditando] = useState(null)
+
+    useEffect(() => {
+        const linkAtivo = document.querySelector(".link-capitulo.ativo")
+
+        if (linkAtivo) {
+            linkAtivo.scrollIntoView({ block: "nearest", inline: "center" })
+        }
+    }, [capitulo])
     const personagem = personagens.find((item) => item.id === id)
 
     if (!personagem) {

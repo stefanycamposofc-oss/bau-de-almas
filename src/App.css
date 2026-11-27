@@ -109,3 +109,14 @@
   background: var(--ouro);
   color: var(--verde-noite);
 }
+
+
+@media (max-width: 700px) {
+  .pagina {
+    padding: 24px 16px;
+  }
+
+  .logo {
+    font-size: 34px;
+  }
+}
