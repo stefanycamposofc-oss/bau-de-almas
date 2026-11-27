@@ -301,7 +301,8 @@
     font-size: 22px;
 }
 
-.item-dano {
+.item-dano,
+.item-detalhe {
     margin: 0 0 8px;
     color: var(--cera);
     font-family: var(--fonte-ficha);

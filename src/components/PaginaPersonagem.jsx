@@ -19,6 +19,7 @@ import EditorFicha from "./EditorFicha"
 import { atributosDnd, periciasDnd, grausDnd } from "./FichaDnd"
 import { atributosOrdem, periciasOrdem, grausOrdem } from "./FichaOrdem"
 import EditorCartoes from "./EditorCartoes"
+import CapituloLista from "./CapituloLista"
 
 const capitulos = [
     { id: "basico", titulo: "Informações básicas"},
@@ -32,6 +33,8 @@ const capitulos = [
     { id: "relacoes", titulo: "Relações"},
     { id: "galeria", titulo: "Galeria"},
     { id: "ficha", titulo: "Ficha"},
+    { id: "habilidades", titulo: "Habilidades", soRpg: true },
+    { id: "magias", titulo: "Magias", soRpg: true },
     { id: "anotacoes", titulo: "Anotações"},
 ]
 const gruposGostos = [
@@ -75,6 +78,21 @@ const camposGaleria = [
     { chave: "src", rotulo: "Imagem", imagem: true },
     { chave: "legenda", rotulo: "Legenda" }
 ]
+const camposHabilidades = [
+    { chave: "nome", rotulo: "Nome" },
+    { chave: "detalhe", rotulo: "Tipo (classe, raça, talento, poder...)" },
+    { chave: "descricao", rotulo: "Descrição", grande: true },
+]
+const camposMagias = [
+    { chave: "nome", rotulo: "Nome" },
+    { chave: "detalhe", rotulo: "Nível e escola (ex.: 1º nível · Evocação)" },
+    { chave: "descricao", rotulo: "Descrição", grande: true },
+]
+const camposRituais = [
+    { chave: "nome", rotulo: "Nome" },
+    { chave: "detalhe", rotulo: "Círculo e elemento (ex.: 1º círculo · Sangue)" },
+    { chave: "descricao", rotulo: "Descrição", grande: true },
+]
 
 function PaginaPersonagem({ personagens, aoSalvar }) {
     const { id, capitulo } = useParams()
@@ -95,7 +113,12 @@ function PaginaPersonagem({ personagens, aoSalvar }) {
         return <p>Personagem não encontrada.</p>
     }
     const ehHistoria = personagem.sistema === "Personagem de história"
-    const capitulosVisiveis = capitulos.filter((cap) => !(ehHistoria && cap.id ==="ficha"))
+    const ehOrdem = personagem.sistema === "Ordem Paranormal"
+    const temFichaPropria = personagem.sistema === "D&D" || ehOrdem
+    const capitulosVisiveis = capitulos
+        .filter((cap) => !(ehHistoria && cap.id === "ficha"))
+        .filter((cap) => !cap.soRpg || temFichaPropria)
+        .map((cap) => (cap.id === "magias" && ehOrdem ? { ...cap, titulo: "Rituais" } : cap))
     const capituloAtual = capitulosVisiveis.find((cap) => cap.id === capitulo) || capitulosVisiveis[0]
     const dados = personagem[capituloAtual.id]
     const capitulosDeTexto = ["aparencia", "historia", "objetivos", "anotacoes"]
@@ -116,6 +139,8 @@ function PaginaPersonagem({ personagens, aoSalvar }) {
         conteudo = <CapituloItens itens={dados} aoEditar={setCartaoEditando} />
     } else if (capituloAtual.id === "galeria" && dados) {
         conteudo = <CapituloGaleria imagens={dados} aoEditar={setCartaoEditando} />
+    } else if (["habilidades", "magias"].includes(capituloAtual.id) && dados) {
+        conteudo = <CapituloLista itens={dados} aoEditar={setCartaoEditando} />
     } else if (capituloAtual.id === "ficha" && dados) {
         if (personagem.sistema === "D&D"){
             conteudo = <FichaDnd ficha={dados} />
@@ -124,10 +149,16 @@ function PaginaPersonagem({ personagens, aoSalvar }) {
         }
     }
     
-const capitulosEditaveis = ["basico", ...capitulosDeTexto, "personalidade", "gostos", "relacoes", "vestuario", "armas", "galeria"]
-const temFichaPropria = personagem.sistema === "D&D" || personagem.sistema === "Ordem Paranormal"
+const capitulosEditaveis = ["basico", ...capitulosDeTexto, "personalidade", "gostos", "relacoes", "vestuario", "armas", "galeria", "habilidades", "magias"]
 const podeEditar = capitulosEditaveis.includes(capituloAtual.id) || (capituloAtual.id === "ficha" && temFichaPropria)
-const camposDosCartoes = { relacoes: camposRelacoes, vestuario: camposVestuario, armas: camposArmas, galeria: camposGaleria}
+const camposDosCartoes = { 
+    relacoes: camposRelacoes, 
+    vestuario: camposVestuario, 
+    armas: camposArmas, 
+    galeria: camposGaleria,
+    habilidades: camposHabilidades,
+    magias: ehOrdem ? camposRituais : camposMagias,
+}
 const ehCartoes = capituloAtual.id in camposDosCartoes
 
     async function salvarCapitulo(novoValor) {
