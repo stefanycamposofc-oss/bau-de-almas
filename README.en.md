@@ -11,7 +11,7 @@
 </p>
 
 🔗 **Live site:** [bau-de-almas.vercel.app](https://bau-de-almas.vercel.app)
-🔒 Access requires login, since the chest is personal.
+👀 You can enter as a **visitor** and explore the characters without logging in (read-only).
 
 > The interface is in Brazilian Portuguese.
 

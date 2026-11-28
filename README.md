@@ -11,7 +11,7 @@ Site pessoal para guardar e organizar os personagens que eu crio, tanto de hist�
 </p>
 
 🔗 **Site no ar:** [bau-de-almas.vercel.app](https://bau-de-almas.vercel.app)
-🔒 O acesso é protegido por login, porque o baú é pessoal.
+👀 Dá para entrar como **visitante** e explorar as personagens sem login (somente leitura).
 
 ## ✨ Funcionalidades
 
