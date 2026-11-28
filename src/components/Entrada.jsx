@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import Login from "./Login"
 import "./Entrada.css"
 
-function Entrada() {
+function Entrada({ aoVisitar }) {
     const [etapa, setEtapa] = useState("trancado")
     const [mostrarLogin, setMostrarLogin] = useState(false)
     const [pronta, setPronta] = useState(false)
@@ -60,7 +60,7 @@ function Entrada() {
 
             {mostrarLogin && (
                 <div className="entrada-login">
-                    <Login />
+                    <Login aoVisitar={aoVisitar} />
                 </div>
             )}
         </div>

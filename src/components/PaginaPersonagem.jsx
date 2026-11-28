@@ -99,7 +99,7 @@ const camposRituais = [
     { chave: "descricao", rotulo: "Descrição", grande: true },
 ]
 
-function PaginaPersonagem({ personagens, aoSalvar }) {
+function PaginaPersonagem({ personagens, aoSalvar, somenteLeitura }) {
     const { id, capitulo } = useParams()
     const navegar = useNavigate()
     const [editandoCapitulo, setEditandoCapitulo] = useState(false)
@@ -124,10 +124,12 @@ function PaginaPersonagem({ personagens, aoSalvar }) {
     const capitulosVisiveis = capitulos
         .filter((cap) => !(ehHistoria && cap.id === "ficha"))
         .filter((cap) => !cap.soRpg || temFichaPropria)
+                .filter((cap) => !(somenteLeitura && ["objetivos", "anotacoes"].includes(cap.id)))
         .map((cap) => (cap.id === "magias" && ehOrdem ? { ...cap, titulo: "Rituais" } : cap))
     const capituloAtual = capitulosVisiveis.find((cap) => cap.id === capitulo) || capitulosVisiveis[0]
     const dados = personagem[capituloAtual.id]
     const capitulosDeTexto = ["aparencia", "historia", "objetivos", "anotacoes"]
+    const aoEditarCartao = somenteLeitura ? null : setCartaoEditando
 
     let conteudo = <p className="em-breve">Este capítulo ainda está em branco.</p>
 
@@ -140,9 +142,9 @@ function PaginaPersonagem({ personagens, aoSalvar }) {
     } else if (capituloAtual.id === "gostos" && dados) {
         conteudo = <CapituloEtiquetas grupos={gruposGostos} dados={dados}/>
     } else if (capituloAtual.id === "relacoes" && dados) {
-        conteudo = <CapituloRelacoes relacoes={dados} aoEditar={setCartaoEditando} />
+        conteudo = <CapituloRelacoes relacoes={dados} aoEditar={aoEditarCartao} />
     } else if (["vestuario", "armas"].includes(capituloAtual.id) && dados) {
-        conteudo = <CapituloItens itens={dados} aoEditar={setCartaoEditando} />
+        conteudo = <CapituloItens itens={dados} aoEditar={aoEditarCartao} />
     } else if (capituloAtual.id === "galeria") {
         const proprias = dados || []
         const automaticas = imagensDosCapitulos(personagem).filter(
@@ -150,10 +152,10 @@ function PaginaPersonagem({ personagens, aoSalvar }) {
         )
 
         if (proprias.length > 0 || automaticas.length > 0) {
-            conteudo = <CapituloGaleria imagens={proprias} automaticas={automaticas} aoEditar={setCartaoEditando} />
+            conteudo = <CapituloGaleria imagens={proprias} automaticas={automaticas} aoEditar={aoEditarCartao} />
         }
     } else if (["habilidades", "magias"].includes(capituloAtual.id) && dados) {
-        conteudo = <CapituloLista itens={dados} aoEditar={setCartaoEditando} />
+        conteudo = <CapituloLista itens={dados} aoEditar={aoEditarCartao} />
     } else if (capituloAtual.id === "ficha" && dados) {
         if (personagem.sistema === "D&D"){
             conteudo = <FichaDnd ficha={dados} />
@@ -163,7 +165,7 @@ function PaginaPersonagem({ personagens, aoSalvar }) {
     }
     
 const capitulosEditaveis = ["basico", ...capitulosDeTexto, "personalidade", "gostos", "relacoes", "vestuario", "armas", "galeria", "habilidades", "magias"]
-const podeEditar = capitulosEditaveis.includes(capituloAtual.id) || (capituloAtual.id === "ficha" && temFichaPropria)
+const podeEditar = !somenteLeitura && (capitulosEditaveis.includes(capituloAtual.id) || (capituloAtual.id === "ficha" && temFichaPropria))
 const camposDosCartoes = { 
     relacoes: camposRelacoes, 
     vestuario: camposVestuario, 
@@ -280,7 +282,9 @@ const ehCartoes = capituloAtual.id in camposDosCartoes
                     <span className="perfil-sistema">{personagem.sistema}</span>
                     <h1 className="perfil-nome">{personagem.nome}</h1>
                     <p className="perfil-resumo">{personagem.resumo}</p>
-                    <button className="editar" onClick={() => navegar("/editar/" + personagem.id)}>Editar</button>
+                    {!somenteLeitura && (
+                        <button className="editar" onClick={() => navegar("/editar/" + personagem.id)}>Editar</button>
+                    )}
                 </div>
         </div>
         <div className="capitulos">

@@ -15,7 +15,9 @@ function CapituloRelacoes({ relacoes, aoEditar }) {
                     <span className="relacao-tipo">{relacao.tipo}</span>
                     <h3 className="relacao-nome">{relacao.nome}</h3>
                     <TextoFormatado texto={relacao.descricao} className="relacao-descricao" />
-                    <button className="editar-capitulo editar-item" onClick={() => aoEditar(indice)}>Editar</button>
+                            {aoEditar && (
+                                <button className="editar-capitulo editar-item" onClick={() => aoEditar(indice)}>Editar</button>
+                            )}
                 </article>
             ))}
         </div>

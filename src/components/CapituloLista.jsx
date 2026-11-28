@@ -13,7 +13,9 @@ function CapituloLista({ itens, aoEditar }) {
                         <h3 className="item-nome">{item.nome}</h3>
                         {item.detalhe && <p className="item-detalhe">{item.detalhe}</p>}
                         <TextoFormatado texto={item.descricao} className="item-descricao" />
-                        <button className="editar-capitulo editar-item" onClick={() => aoEditar(indice)}>Editar</button>
+                            {aoEditar && (
+                                <button className="editar-capitulo editar-item" onClick={() => aoEditar(indice)}>Editar</button>
+                            )}
                     </div>
                 </article>
             ))}

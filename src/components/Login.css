@@ -81,3 +81,19 @@
     opacity: 0.6;
     cursor: wait;
 }
+
+
+.login-visitante {
+    margin-top: 4px;
+    padding: 10px;
+    border: 1px solid var(--sepia);
+    background: transparent;
+    color: var(--sepia);
+    font-family: var(--fonte-texto);
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.login-visitante:hover {
+    background: rgba(94, 64, 36, 0.1);
+}

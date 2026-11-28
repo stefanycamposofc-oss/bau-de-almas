@@ -120,3 +120,17 @@
     font-size: 34px;
   }
 }
+
+
+.modo-visitante {
+  display: inline-block;
+  margin: 0 12px 0 0;
+  padding: 4px 12px;
+  border: 1px solid var(--ouro);
+  border-radius: 999px;
+  color: var(--ouro);
+  font-family: var(--fonte-ficha);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}

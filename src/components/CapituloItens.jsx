@@ -33,7 +33,9 @@ function CapituloItens({ itens, aoEditar }) {
                                     ))}
                                 </ul>
                             )}
-                            <button className="editar-capitulo editar-item" onClick={() => aoEditar(indice)}>Editar</button>
+                            {aoEditar && (
+                                <button className="editar-capitulo editar-item" onClick={() => aoEditar(indice)}>Editar</button>
+                            )}
                         </div>
                     </article>
                 ))}

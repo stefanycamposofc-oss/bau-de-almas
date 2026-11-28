@@ -2,7 +2,7 @@ import { useState } from "react"
 import { supabase } from "../lib/supabase"
 import "./Login.css"
 
-function Login() {
+function Login({ aoVisitar }) {
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
     const [erro, setErro] = useState("")
@@ -56,6 +56,12 @@ function Login() {
                 <button className="login-botao" type="submit" disabled={entrando}>
                     {entrando ? "Abrindo..." : "Abrir o baú"}
                 </button>
+                
+                {aoVisitar && (
+                    <button className="login-visitante" type="button" onClick={aoVisitar}>
+                        Entrar como visitante
+                    </button>
+                )}
             </form>
         </div>
     )

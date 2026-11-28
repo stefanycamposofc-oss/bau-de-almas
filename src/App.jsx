@@ -15,6 +15,7 @@ function App() {
   const [carregando, setCarregando] = useState(true)
   const [personagens, setPersonagens] = useState([])
   const [carregandoPersonagens, setCarregandoPersonagens] = useState(true)
+  const [visitante, setVisitante] = useState(false)
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -30,7 +31,8 @@ function App() {
   }, [])
   
   async function buscarPersonagens() {
-    const { data, error } = await supabase.from("personagens").select("*").order("nome")
+    const tabela = sessao ? "personagens" : "personagens_publicas"
+    const { data, error } = await supabase.from(tabela).select("*").order("nome")
 
     if (error) {
       console.error("Erro ao buscar personagens:", error)
@@ -42,10 +44,10 @@ function App() {
   }
 
   useEffect(() => {
-    if (sessao) {
+    if (sessao || visitante) {
       buscarPersonagens()
     }
-  }, [sessao])
+  }, [sessao, visitante])
   const personagensFiltrados = personagens.filter((personagem) => {
     const combinaBusca = personagem.nome.toLowerCase().includes(busca.toLowerCase())
 
@@ -60,16 +62,17 @@ function App() {
     return combinaBusca && combinaTipo
   })
   
-  if (carregando || (sessao && carregandoPersonagens)) {
+  if (carregando || ((sessao || visitante) && carregandoPersonagens)) {
     return <p className="carregando">Abrindo o baú...</p>
   }
 
-  if (!sessao) {
-    return <Entrada />
+  if (!sessao && !visitante) {
+    return <Entrada aoVisitar={() => setVisitante(true)} />
   }
 
-    
+  const somenteLeitura = !sessao
 
+  
   return (
         <Routes>
       <Route path="/" element={
@@ -77,7 +80,14 @@ function App() {
       <header className="cabecalho">
         <h1 className="logo">Baú de Almas</h1>
         <p className="slogan">Seus personagens, suas histórias.</p>
-        <button className="sair" onClick={() => supabase.auth.signOut()}>Sair</button>
+        {somenteLeitura ? (
+          <>
+            <span className="modo-visitante">Modo visitante</span>
+            <button className="sair" onClick={() => setVisitante(false)}>Voltar à entrada</button>
+          </>
+        ) : (
+          <button className="sair" onClick={() => supabase.auth.signOut()}>Sair</button>
+        )}
       </header>
       <input
         className="busca"
@@ -95,7 +105,9 @@ function App() {
         <button className="filtro" onClick={() => setTipo("Ordem Paranormal")}>Ordem Paranormal</button>
       </div>
       
-      <button className="nova" onClick={() => navegar("/nova")}>+ Nova personagem</button>
+      {!somenteLeitura && (
+        <button className="nova" onClick={() => navegar("/nova")}>+ Nova personagem</button>
+      )}
 
 
       <div className="galeria">
@@ -112,9 +124,13 @@ function App() {
     </div>
           } />
 
-      <Route path="/personagem/:id/:capitulo?" element={<PaginaPersonagem personagens={personagens} aoSalvar={buscarPersonagens} />} />
-      <Route path="/nova" element={<FormPersonagem personagens={personagens} aoSalvar={buscarPersonagens} />} />
-      <Route path="/editar/:id" element={<FormPersonagem personagens={personagens} aoSalvar={buscarPersonagens} />} />
+      <Route path="/personagem/:id/:capitulo?" element={<PaginaPersonagem personagens={personagens} aoSalvar={buscarPersonagens} somenteLeitura={somenteLeitura} />} />
+      {!somenteLeitura && (
+        <>
+          <Route path="/nova" element={<FormPersonagem personagens={personagens} aoSalvar={buscarPersonagens} />} />
+          <Route path="/editar/:id" element={<FormPersonagem personagens={personagens} aoSalvar={buscarPersonagens} />} />
+        </>
+      )}
     </Routes>
   )
 }

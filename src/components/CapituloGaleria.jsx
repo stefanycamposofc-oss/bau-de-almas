@@ -45,7 +45,7 @@ function CapituloGaleria({ imagens, automaticas = [], aoEditar }) {
                         {imagem.origem ? (
                             <span className="galeria-origem">De: {imagem.origem}</span>
                         ) : (
-                            <button className="editar-capitulo" onClick={() => aoEditar(indice)}>Editar</button>
+                            aoEditar && <button className="editar-capitulo" onClick={() => aoEditar(indice)}>Editar</button>
                         )}
                     </div>
                 ))}
