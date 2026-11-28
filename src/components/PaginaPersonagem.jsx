@@ -104,6 +104,7 @@ function PaginaPersonagem({ personagens, aoSalvar }) {
     const navegar = useNavigate()
     const [editandoCapitulo, setEditandoCapitulo] = useState(false)
     const [cartaoEditando, setCartaoEditando] = useState(null)
+        const [fotoQuebrada, setFotoQuebrada] = useState("")
 
     useEffect(() => {
         const linkAtivo = document.querySelector(".link-capitulo.ativo")
@@ -267,8 +268,13 @@ const ehCartoes = capituloAtual.id in camposDosCartoes
             <button className= "voltar" onClick={() => navegar("/")}>← Voltar ao baú</button>
 
             <div className="perfil">
-                {personagem.foto && (
-                    <img className="perfil-foto" src={personagem.foto} alt={personagem.nome} />
+                {personagem.foto && personagem.foto !== fotoQuebrada && (
+                    <img
+                        className="perfil-foto"
+                        src={personagem.foto}
+                        alt={personagem.nome}
+                        onError={() => setFotoQuebrada(personagem.foto)}
+                    />
                 )}
                 <div>
                     <span className="perfil-sistema">{personagem.sistema}</span>

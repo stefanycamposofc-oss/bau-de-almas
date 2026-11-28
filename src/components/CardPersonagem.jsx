@@ -1,6 +1,8 @@
-import"./CardPersonagem.css"
+import "./CardPersonagem.css"
+import { useState } from "react"
 
 function CardPersonagem({ nome, resumo, sistema, foto, aoAbrir }) {
+    const [fotoQuebrada, setFotoQuebrada] = useState("")
     const inicial = nome.charAt(0)
     const ehHistoria = sistema === "Personagem de história"
     const carimbo = ehHistoria ? "HISTÓRIA" : "RPG"
@@ -15,8 +17,8 @@ function CardPersonagem({ nome, resumo, sistema, foto, aoAbrir }) {
                     <p className="campo"><span className="rotulo">Sistema:</span> {sistema}</p>
                 </div>
                 <div className="ficha-foto">
-                    {foto ? (
-                        <img className="foto-img" src={foto} alt={nome} />
+                    {foto && foto !== fotoQuebrada ? (
+                        <img className="foto-img" src={foto} alt={nome} onError={() => setFotoQuebrada(foto)} />
                     ) : (
                         inicial
                     )}                    <span className="clipe"></span>
