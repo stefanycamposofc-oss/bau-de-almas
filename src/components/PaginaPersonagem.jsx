@@ -6,7 +6,7 @@ import CapituloPersonalidade from "./CapituloPersonalidade"
 import CapituloEtiquetas from "./CapituloEtiquetas"
 import CapituloRelacoes from "./CapituloRelacoes"
 import CapituloItens from "./CapituloItens"
-import CapituloGaleria from "./CapituloGaleria"
+import CapituloGaleria, { imagensDosCapitulos } from "./CapituloGaleria"
 import FichaDnd from "./FichaDnd"
 import FichaOrdem from "./FichaOrdem"
 import { useState, useEffect } from "react"
@@ -142,8 +142,15 @@ function PaginaPersonagem({ personagens, aoSalvar }) {
         conteudo = <CapituloRelacoes relacoes={dados} aoEditar={setCartaoEditando} />
     } else if (["vestuario", "armas"].includes(capituloAtual.id) && dados) {
         conteudo = <CapituloItens itens={dados} aoEditar={setCartaoEditando} />
-    } else if (capituloAtual.id === "galeria" && dados) {
-        conteudo = <CapituloGaleria imagens={dados} aoEditar={setCartaoEditando} />
+    } else if (capituloAtual.id === "galeria") {
+        const proprias = dados || []
+        const automaticas = imagensDosCapitulos(personagem).filter(
+            (imagem) => !proprias.some((propria) => propria.src === imagem.src)
+        )
+
+        if (proprias.length > 0 || automaticas.length > 0) {
+            conteudo = <CapituloGaleria imagens={proprias} automaticas={automaticas} aoEditar={setCartaoEditando} />
+        }
     } else if (["habilidades", "magias"].includes(capituloAtual.id) && dados) {
         conteudo = <CapituloLista itens={dados} aoEditar={setCartaoEditando} />
     } else if (capituloAtual.id === "ficha" && dados) {

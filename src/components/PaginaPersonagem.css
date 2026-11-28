@@ -351,6 +351,16 @@
     gap: 6px;
 }
 
+
+.galeria-origem {
+    padding: 6px 0;
+    color: var(--sepia);
+    font-family: var(--fonte-ficha);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-align: center;
+}
+
 .miniatura {
     padding: 0;
     position: relative;

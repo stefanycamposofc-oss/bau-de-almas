@@ -1,23 +1,53 @@
 import { useState } from "react"
 
-function CapituloGaleria({ imagens, aoEditar }) {
-    const [aberta, setAberta] = useState(null)
+export function imagensDosCapitulos(personagem) {
+    const imagens = []
 
-    if (imagens.length === 0) {
+    if (personagem.foto) {
+        imagens.push({ src: personagem.foto, legenda: personagem.nome, origem: "Foto" })
+    }
+
+    const fontes = [
+        { lista: personagem.vestuario, chave: "imagem", origem: "Vestuário" },
+        { lista: personagem.armas, chave: "imagem", origem: "Armas" },
+        { lista: personagem.relacoes, chave: "foto", origem: "Relações" },
+    ]
+
+    fontes.forEach((fonte) => {
+        (fonte.lista || []).forEach((item) => {
+            if (item[fonte.chave]) {
+                imagens.push({ src: item[fonte.chave], legenda: item.nome, origem: fonte.origem })
+            }
+        })
+    })
+
+    return imagens
+}
+
+function CapituloGaleria({ imagens, automaticas = [], aoEditar }) {
+    const [aberta, setAberta] = useState(null)
+    const todas = [...imagens, ...automaticas]
+
+    if (todas.length === 0) {
         return <p className="em-breve">Nenhuma imagem ainda.</p>
     }
 
     return (
         <>
             <div className="galeria-imagens">
-                {imagens.map((imagem, indice) => (
-                <div className="galeria-item" key={indice}>
-                    <button className="miniatura" onClick={() => setAberta(imagem)}>
-                        <img src={imagem.src} alt={imagem.legenda} />
-                        {imagem.legenda && <span className="miniatura-legenda">{imagem.legenda}</span>}
-                    </button>
-                    <button className="editar-capitulo" onClick={() => aoEditar(indice)}>Editar</button>
-                </div>
+                {todas.map((imagem, indice) => (
+                    <div className="galeria-item" key={indice}>
+                        <button className="miniatura" onClick={() => setAberta(imagem)}>
+                            <img src={imagem.src} alt={imagem.legenda} />
+                            {imagem.legenda && <span className="miniatura-legenda">{imagem.legenda}</span>}
+                        </button>
+
+                        {imagem.origem ? (
+                            <span className="galeria-origem">De: {imagem.origem}</span>
+                        ) : (
+                            <button className="editar-capitulo" onClick={() => aoEditar(indice)}>Editar</button>
+                        )}
+                    </div>
                 ))}
             </div>
 
