@@ -1,10 +1,17 @@
 import { useState } from "react"
 import { supabase } from "../lib/supabase"
 import "./CampoImagem.css"
+import { confirmar } from "../lib/confirmar"
 
 function CampoImagem({ valor, aoMudar }) {
     const [enviando, setEnviando] = useState(false)
     const [erro, setErro] = useState("")
+    
+    async function removerImagem() {
+        if (await confirmar("Remover esta imagem?")) {
+            aoMudar("")
+        }
+    }
 
     async function enviar(evento) {
         const arquivo = evento.target.files[0]
@@ -48,7 +55,7 @@ function CampoImagem({ valor, aoMudar }) {
             </label>
 
             {valor && !enviando && (
-                <button className="campo-imagem-remover" type="button" onClick={() => window.confirm("Remover esta imagem?") && aoMudar("")}>
+                <button className="campo-imagem-remover" type="button" onClick={removerImagem}>
                     Remover imagem
                 </button>
             )}

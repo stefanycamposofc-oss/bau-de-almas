@@ -1,5 +1,6 @@
 import { useState } from "react"
 import CampoImagem from "./CampoImagem"
+import { confirmar } from "../lib/confirmar"
 
 function textoParaEditar(valor) {
     return Array.isArray(valor) ? valor.join(", ") : valor || ""
@@ -17,8 +18,8 @@ function  EditorCartoes({ campos, valorInicial, aoSalvar, aoCancelar, obrigatori
         setCartoes([...cartoes, {}])
     }
 
-function removerCartao(indice) {
-    if (!window.confirm("Tem certeza que quer remover este item?")) {
+async function removerCartao(indice) {
+    if (!(await confirmar("Remover este item?"))) {
         return
     }
     if (unico) {

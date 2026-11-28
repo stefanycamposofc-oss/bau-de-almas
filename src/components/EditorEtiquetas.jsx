@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { confirmar } from "../lib/confirmar"
 
 function EditorEtiquetas({ grupos, campoTexto, valorInicial, aoSalvar, aoCancelar}) {
     const [valores, setValores] = useState(valorInicial || {})
@@ -17,10 +18,10 @@ function EditorEtiquetas({ grupos, campoTexto, valorInicial, aoSalvar, aoCancela
         setNovos({ ...novos, [chave]: "" })
     }
 
-    function remover(chave, indice) {
+    async function remover(chave, indice) {
         const lista = valores[chave] || []
 
-        if (!window.confirm('Remover "' + lista[indice] + '"?')) {
+        if (!(await confirmar('Remover "' + lista[indice] + '"?'))) {
             return
         }
         

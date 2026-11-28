@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { supabase } from "../lib/supabase"
 import "./FormPersonagem.css"
 import CampoImagem from "./CampoImagem"
+import { confirmar } from "../lib/confirmar"
 
 const sistemas = [
     "D&D",
@@ -68,7 +69,7 @@ function FormPersonagem({ personagens, aoSalvar }) {
     }
     
     async function apagar() {
-        const certeza = window.confirm("Apagar " + existente.nome + "? Isso não pode ser desfeito.")
+        const certeza = await confirmar("Apagar " + existente.nome + "? Isso não pode ser desfeito.")
 
         if (!certeza) {
             return
