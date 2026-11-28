@@ -3,7 +3,7 @@
   position: relative;  
   cursor: pointer;
   transition: transform 200ms ease;
-  padding: 28px 24px;
+  padding: 28px 24px 72px;
   background: var(--pergaminho);
   color: var(--tinta);
   font-family: var(--fonte-ficha);
